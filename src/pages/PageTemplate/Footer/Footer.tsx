@@ -42,7 +42,7 @@ const Footer = () => {
         <GridFooterVertical>
           <TypographyTitleFooter>O nas</TypographyTitleFooter>
           <ButtonTextFooter>Kim jesteśmy</ButtonTextFooter>
-          <ButtonTextFooter>Praca</ButtonTextFooter>
+          <ButtonTextFooter>Praca z nami</ButtonTextFooter>
           <ButtonTextFooter>Dostawy</ButtonTextFooter>
         </GridFooterVertical>
         <GridFooterVertical>
