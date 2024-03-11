@@ -1,9 +1,10 @@
 import PageTemplate from '../PageTemplate/PageTemplate';
+import Banner from './Banner/Banner';
 
 const HomePage = () => {
   return (
     <PageTemplate>
-      <div>Banner</div>
+      <Banner />
     </PageTemplate>
   );
 };
