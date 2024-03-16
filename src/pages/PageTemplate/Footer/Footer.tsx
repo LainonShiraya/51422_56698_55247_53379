@@ -29,6 +29,7 @@ const Footer = () => {
         sx={{ margin: 'auto' }}
       >
         <GridFooterVertical>
+        <TypographyTitleFooter>DANE KONTAKTOWE</TypographyTitleFooter>
           <img
             src={logo}
             width='104px'

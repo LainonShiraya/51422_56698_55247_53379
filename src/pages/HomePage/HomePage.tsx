@@ -3,8 +3,10 @@ import PageTemplate from '../PageTemplate/PageTemplate';
 const HomePage = () => {
   return (
     <PageTemplate>
-      <div>Banner</div>
+      <div>Banner2</div>
+      
     </PageTemplate>
+    
   );
 };
 

@@ -1,0 +1,112 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.slider {
+  overflow: hidden;
+  position: relative;
+  width: 1400px; /* Dostosuj szerokość zgodnie z potrzebami */
+  margin: auto;
+  margin: auto;
+  position: relative; /* Powinno być ustawione, aby dzieci miały punkt odniesienia dla pozycjonowania */
+  z-index: 1;
+}
+
+.slide img {
+  width: 100%; /* Dopasowuje szerokość obrazka do kontenera */
+  height: 100%; /* Dopasowuje wysokość obrazka do kontenera */
+  object-fit: contain;
+}
+
+
+.slide-container {
+  display: flex;
+  transition: transform 0.3s ease-out; /* Tylko kontener slajdów ma animację przejścia */
+}
+
+
+.slide {
+  flex: 0 0 auto; /* Zapobiega rozciąganiu elementów */
+  /* Nie ustawiaj szerokości i marginesu tutaj, ponieważ są one ustawiane w stylach komponentu */
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Zapewnia, że obrazy są dobrze dopasowane */
+}
+
+/* ... (reszta twoich stylów) ... */
+
+.slider-nav {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  z-index: 1000; /* Znacznie wyższy z-index, aby uniknąć konfliktów z innymi elementami */
+  pointer-events: none;
+}
+
+.slider-nav .prev, .slider-nav .next {
+  pointer-events: auto; /* Włącza klikalność */
+  cursor: pointer;
+  background-color: #ffd401; /* Żółte tło */
+  color: white;
+  border: none;
+  font-size: 24px; /* Dostosuj rozmiar fontu */
+  width: 40px; /* Szerokość przycisku */
+  height: 40px; /* Wysokość przycisku */
+  line-height: 40px; /* Centrowanie znaku w pionie */
+  text-align: center; /* Centrowanie znaku w poziomie */
+  border-radius: 50%; /* Okrągłe przyciski */
+  margin: 0; /* Brak marginesu zewnętrznego */
+  position: absolute; /* Pozycjonowanie absolutne w stosunku do najbliższego przodka z position: relative */
+  top: 50%; /* Umieszczenie góry przycisku na środku slajdera */
+  transform: translateY(-50%); 
+  
+}
+
+.slider-nav .prev {
+  left: 20px; /* Dostosuj odstęp od krawędzi, jeśli to konieczne */
+}
+
+.slider-nav .next {
+  right: 20px /* Dostosuj odstęp od krawędzi, jeśli to konieczne */
+}
+
+.slider-nav .prev:hover, .slider-nav .next:hover {
+  background-color: #e0c101; /* Zmiana koloru tła po najechaniu */
+}
+
+
+.slider-control {
+  cursor: pointer;
+  background-color: #ffd401;
+  color: white;
+  border: none;
+  font-size: 24px;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
+
+.slider .slider-control:hover {
+  background-color: #e0c101;
+}
+
+.slider .slider-control:first-of-type {
+  left: 10px;
+}
+
+.slider .slider-control:last-of-type {
+  right: 10px;
+}

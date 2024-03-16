@@ -22,6 +22,7 @@ const UpperNavbar = () => {
           <ButtonNoStyles>{`>`}</ButtonNoStyles>
         </ToolbarUpperNavbar>
         <ToolbarUpperNavbar>
+          
           <ButtonNoStyles>
             {icon} {FullName}
           </ButtonNoStyles>
