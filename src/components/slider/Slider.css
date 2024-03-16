@@ -1,0 +1,41 @@
+
+.slider {
+  overflow: hidden;
+  position: relative; /* Powinno być ustawione, aby dzieci miały punkt odniesienia dla pozycjonowania */
+  z-index: 1;
+}
+
+.slide-container {
+  transition: transform 0.3s ease-out; /* Tylko kontener slajdów ma animację przejścia */
+}
+
+
+.slider-control {
+  cursor: pointer;
+  background-color: #ffd401;
+  color: white;
+  border: none;
+  font-size: 24px;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
+
+.slider .slider-control:hover {
+  background-color: #e0c101;
+}
+
+.slider .slider-control:first-of-type {
+  left: 10px;
+}
+
+.slider .slider-control:last-of-type {
+  right: 10px;
+}
