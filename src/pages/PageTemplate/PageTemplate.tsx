@@ -2,7 +2,6 @@ import Navbar from './Navbar/Navbar';
 import { PageWrapper } from './PageTemplateStyles';
 import Footer from './Footer/Footer';
 import Container from '@mui/material/Container';
-import Sidebar from './Sidebar/Sidebar';
 
 const HomePage = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -20,9 +19,6 @@ const HomePage = ({ children }: { children: React.ReactNode }) => {
         {children}
       </Container>
       <Footer />
-      <Sidebar isOpen={false} toggleSidebar={function (): void {
-        throw new Error('Function not implemented.');
-      } } />
     </PageWrapper>
   );
 };
