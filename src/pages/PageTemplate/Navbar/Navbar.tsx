@@ -6,8 +6,16 @@ import {
   MenuItemUnderlined,
 } from './NavbarStyles';
 import UpperNavbar from './UpperNavbar/UpperNavbar';
+import Sidebar from '../../../pages/PageTemplate/Sidebar/Sidebar';
+import { useState } from 'react';
+
 
 const Navbar = () => {
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+    const toggleSidebar = () => {
+      setIsSidebarOpen(!isSidebarOpen);
+    };
   return (
     <AppBar position='sticky'>
       <UpperNavbar />
@@ -17,7 +25,9 @@ const Navbar = () => {
             src={logo}
             width='82px'
           />
-          <MenuItemUnderlined>BUY</MenuItemUnderlined>
+          <Button  onClick={toggleSidebar} className="MenuItemUnderlined">
+            BUY</Button>
+          <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
           <MenuItemUnderlined>SELL</MenuItemUnderlined>
           <MenuItemUnderlined>PRE SALE</MenuItemUnderlined>
           <ButtonSpecial>PROMOTIONS</ButtonSpecial>
@@ -31,5 +41,4 @@ const Navbar = () => {
     </AppBar>
   );
 };
-
 export default Navbar;
