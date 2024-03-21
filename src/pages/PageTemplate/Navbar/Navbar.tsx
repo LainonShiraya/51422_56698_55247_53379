@@ -10,11 +10,18 @@ import Sidebar from '../../../pages/PageTemplate/Sidebar/Sidebar';
 import { useState } from 'react';
 
 const Navbar = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [sidebarValue, setSidebarValue] = useState('0');
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
+    const toggleSidebar = () => {
+      setIsSidebarOpen(!isSidebarOpen);
+    };
+
+    const changeSidebarValue = (newValue: string )=> {
+      setSidebarValue(newValue);
+    };
+
+
   return (
     <AppBar position='sticky'>
       <UpperNavbar />
@@ -24,13 +31,15 @@ const Navbar = () => {
             src={logo}
             width='82px'
           />
-          <MenuItemUnderlined onClick={toggleSidebar}>BUY</MenuItemUnderlined>
+          <MenuItemUnderlined onClick={() => { changeSidebarValue('1'); toggleSidebar(); }}>BUY</MenuItemUnderlined>
+          <MenuItemUnderlined onClick={() => { changeSidebarValue('2'); toggleSidebar(); }}>SELL</MenuItemUnderlined>
+          <MenuItemUnderlined onClick={() => { changeSidebarValue('3'); toggleSidebar(); }}>PRE SALE</MenuItemUnderlined>
           <Sidebar
             isOpen={isSidebarOpen}
             toggleSidebar={toggleSidebar}
+            value={sidebarValue} 
+            changeValue={changeSidebarValue} 
           />
-          <MenuItemUnderlined>SELL</MenuItemUnderlined>
-          <MenuItemUnderlined>PRE SALE</MenuItemUnderlined>
           <ButtonSpecial>PROMOTIONS</ButtonSpecial>
         </Toolbar>
         <Toolbar>

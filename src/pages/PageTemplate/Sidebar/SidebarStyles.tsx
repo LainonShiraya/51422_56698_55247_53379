@@ -1,4 +1,7 @@
 import Container from '@mui/material/Container';
+import Tab from '@mui/material/Tab';
+import React from 'react';
+
 
 export const ContainerSidebarWrapper = ({
   children,
@@ -18,4 +21,23 @@ export const ContainerSidebarWrapper = ({
   >
     {children}
   </Container>
+);
+
+export const TabSidebar = ({
+  label,
+  value,
+}: {
+  label: string;
+  value: string;
+}) => (
+  <Tab
+    disableRipple
+    sx={{
+      fontWeight: 'bold',
+      color: 'black',
+      borderBottom: 'white',
+    }}
+    label={label + ' - ' + value}
+    value={value}
+  />
 );
