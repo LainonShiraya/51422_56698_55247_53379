@@ -32,6 +32,7 @@ export const AppBarUpperNavbarWrapper = ({
       boxShadow: 'none',
       height: '48px',
       display: 'flex',
+      zIndex: 0,
     }}
   >
     {children}
