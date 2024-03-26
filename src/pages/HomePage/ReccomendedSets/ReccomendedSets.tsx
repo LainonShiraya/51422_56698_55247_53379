@@ -1,25 +1,32 @@
 import { Grid, Typography } from '@mui/material';
 import Container from '@mui/material/Container';
-import Product from './Product.tsx/Product';
+import Product from './Product/Product';
 
 function ReccomendedSets() {
   return (
     <Container maxWidth='xl'>
+      <Typography
+        variant='h4'
+        fontWeight={500}
+        sx={{ color: '#000' }}
+      >
+        {' '}
+        Co kupują inni
+      </Typography>
       <Container
         maxWidth='xl'
-        sx={{ backgroundColor: '#FFD100', height: '600px', margin: '0' }}
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          marginBlock: '1rem',
+          padding: '0 !important',
+        }}
       >
-        <Typography
-          variant='h5'
-          fontWeight={500}
-          sx={{ color: '#000' }}
-        >
-          {' '}
-          Polecane Zestawy
-        </Typography>
-        <Container>
-          <Product />
-        </Container>
+        <Product />
+        <Product />
+        <Product />
+        <Product />
       </Container>
       <Grid
         container

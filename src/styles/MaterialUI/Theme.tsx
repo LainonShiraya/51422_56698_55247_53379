@@ -29,6 +29,12 @@ export const Theme = responsiveFontSizes(
                 textTransform: 'none',
                 margin: 'auto',
                 '&:hover': { backgroundColor: 'inherit' },
+                '&:focus': {
+                  outline: 'none',
+                },
+                '&:active': {
+                  outline: 'none',
+                },
               }),
             ...(ownerState.variant === 'contained' && {
               textTransform: 'none',
