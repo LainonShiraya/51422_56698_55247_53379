@@ -16,7 +16,6 @@ export const ContainerSidebarWrapper = ({
       flexDirection: 'row',
       marginBlock: '0.5rem',
       marginTop: '4rem',
-      marginLeft: '9.4rem',
       width: 'auto',
     }}
   >
