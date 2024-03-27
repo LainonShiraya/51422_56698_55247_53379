@@ -36,6 +36,7 @@ export const ButtonSpecial = ({
     sx={{
       fontWeight: '700',
       margin: '0',
+      width: 'fit-content',
       '&:hover': {
         backgroundColor: '#ED1C24',
         color: '#FFF',
