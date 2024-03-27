@@ -35,9 +35,6 @@ export const ButtonTextFooter = ({
       color: '#FFF',
       fontSize: '1rem',
       margin: '0',
-      '&:hover': {
-        boxShadow: '0 4px 2px -2px  #FFF',
-      },
     }}
   >
     {children}

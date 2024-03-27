@@ -2,6 +2,7 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
+import SendIcon from '@mui/icons-material/Send';
 
 export const ContainerNavbarWrapper = ({
   children,
@@ -21,12 +22,21 @@ export const ContainerNavbarWrapper = ({
   </Container>
 );
 
-export const ButtonSpecial = ({ children }: { children?: React.ReactNode }) => (
+export const ButtonSpecial = ({
+  children,
+  hasIcon,
+}: {
+  children?: React.ReactNode;
+  hasIcon?: boolean;
+}) => (
   <Button
     variant='contained'
     color='secondary'
+    endIcon={hasIcon && <SendIcon />}
     sx={{
       fontWeight: '700',
+      margin: '0',
+      width: 'fit-content',
       '&:hover': {
         backgroundColor: '#ED1C24',
         color: '#FFF',
@@ -39,11 +49,14 @@ export const ButtonSpecial = ({ children }: { children?: React.ReactNode }) => (
 
 export const MenuItemUnderlined = ({
   children,
+  onClick,
 }: {
   children?: React.ReactNode;
+  onClick?: () => void;
 }) => (
   <MenuItem
     disableRipple
+    onClick={onClick}
     sx={{
       '&:hover': {
         backgroundColor: 'transparent',
