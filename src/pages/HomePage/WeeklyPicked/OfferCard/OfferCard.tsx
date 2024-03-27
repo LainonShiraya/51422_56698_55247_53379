@@ -10,36 +10,41 @@ export default function OfferCard({
   title,
   description,
   image,
+  size = 'lg',
+  color = 'black',
 }: {
   title: string;
   description: string;
   image: string;
+  size?: 'lg' | 'sm';
+  color?: string;
 }) {
   return (
     <Card
       sx={{
-        maxWidth: 380,
+        maxWidth: size === 'lg' ? 380 : 260,
         border: 'none',
         boxShadow: 'none',
         backgroundColor: 'inherit',
       }}
     >
       <CardMedia
-        sx={{ height: 260 }}
+        sx={{ height: size === 'lg' ? 260 : 220 }}
         image={image}
         title={title}
       />
       <CardContent sx={{ border: 'none', textAlign: 'center' }}>
         <Typography
           gutterBottom
-          variant='h5'
+          variant={size === 'lg' ? 'h5' : 'h6'}
           component='div'
+          color={color}
         >
           {title}
         </Typography>
         <Typography
           variant='body2'
-          color='text.secondary'
+          color={color}
         >
           {description}
         </Typography>
@@ -53,6 +58,7 @@ export default function OfferCard({
           sx={{
             fontWeight: '700',
             fontSize: '1rem',
+            color: color,
             '&:hover': {
               backgroundColor: 'transparent',
             },
