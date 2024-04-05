@@ -8,6 +8,9 @@ import {
 import UpperNavbar from './UpperNavbar/UpperNavbar';
 import Sidebar from '../../../pages/PageTemplate/Sidebar/Sidebar';
 import { useState } from 'react';
+//import CartPage from '../../CartPage/CartPage';
+//import { Route } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 
 const Navbar = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -45,7 +48,7 @@ const Navbar = () => {
         <Toolbar>
           <Button>Search</Button>
           <Button>Like</Button>
-          <Button>Cart</Button>
+          <Button component={RouterLink} to="/cart">Cart</Button>
         </Toolbar>
       </ContainerNavbarWrapper>
     </AppBar>

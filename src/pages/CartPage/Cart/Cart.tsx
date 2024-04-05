@@ -4,7 +4,7 @@ const Cart = () => {
     <Container
       maxWidth='xl'
       sx={{
-        background: 'red',
+        background: 'white',
         minHeight: '50vh',
         margin: 'auto',
         justifyContent: 'center',

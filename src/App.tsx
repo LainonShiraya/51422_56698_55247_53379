@@ -2,7 +2,7 @@ import './styles/App.css';
 import { ThemeProvider } from '@mui/material/styles';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Theme } from './styles/MaterialUI/Theme';
-//import HomePage from './pages/HomePage/HomePage';
+import HomePage from './pages/HomePage/HomePage';
 import CartPage from './pages/CartPage/CartPage';
 
 function App() {
@@ -11,7 +11,11 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route
-            index
+            path="/"
+            element={<HomePage />}
+          />
+          <Route
+            path="/cart"
             element={<CartPage />}
           />
         </Routes>
