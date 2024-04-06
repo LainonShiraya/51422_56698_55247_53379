@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import Button from '@mui/material/Button';
 
 export const BoxOptionPickerOption = ({
@@ -23,15 +23,12 @@ export const BoxOptionPickerOption = ({
       },
       '&:hover': {
         backgroundColor: 'transparent',
-        '& .MuiTypography-root': {
-          textDecoration: 'underline',
-        },
       },
     }}
   >
     <Box>
       <img src={icon} />
     </Box>
-    <Typography>{title}</Typography>
+    {title}
   </Button>
 );

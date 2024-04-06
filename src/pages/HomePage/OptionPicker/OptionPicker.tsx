@@ -26,9 +26,8 @@ const OptionPicker = () => {
 
   return (
     <Container sx={{ display: 'flex', flexDirection: 'row' }}>
-      {options.map((option, key) => (
+      {options.map((option) => (
         <BoxOptionPickerOption
-          key={key}
           title={option.title}
           icon={option.img}
         />

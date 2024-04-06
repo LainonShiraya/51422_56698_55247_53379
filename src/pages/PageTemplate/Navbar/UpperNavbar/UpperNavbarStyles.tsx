@@ -32,6 +32,7 @@ export const AppBarUpperNavbarWrapper = ({
       boxShadow: 'none',
       height: '48px',
       display: 'flex',
+      zIndex: 0,
     }}
   >
     {children}
@@ -50,11 +51,14 @@ export const ToolbarUpperNavbar = ({
 
 export const ButtonNoStyles = ({
   children,
+  onClick,
 }: {
   children?: React.ReactNode;
+  onClick?: () => void;
 }) => (
   <Button
     disableRipple
+    onClick={onClick}
     sx={{
       minHeight: '0',
       padding: '0',

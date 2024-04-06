@@ -36,6 +36,7 @@ export const ButtonSpecial = ({
     sx={{
       fontWeight: '700',
       margin: '0',
+      width: 'fit-content',
       '&:hover': {
         backgroundColor: '#ED1C24',
         color: '#FFF',
@@ -48,11 +49,14 @@ export const ButtonSpecial = ({
 
 export const MenuItemUnderlined = ({
   children,
+  onClick,
 }: {
   children?: React.ReactNode;
+  onClick?: () => void;
 }) => (
   <MenuItem
     disableRipple
+    onClick={onClick}
     sx={{
       '&:hover': {
         backgroundColor: 'transparent',

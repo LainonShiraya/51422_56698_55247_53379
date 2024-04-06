@@ -19,7 +19,6 @@ const HomePage = ({ children }: { children: React.ReactNode }) => {
       >
         {children}
       </Container>
-      <Slider />
       <Footer />
     </PageWrapper>
   );
