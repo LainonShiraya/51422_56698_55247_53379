@@ -4,9 +4,10 @@ import { ButtonSemiCircular, OrderValueStyle } from './OrderSummaryStyles';
 import { useState } from 'react';
 import React from 'react';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
+import { useOrderContext } from '../CartContext';
 
-const OrderSummary = () => {
-  const [OrderCost, setOrderCost] = useState(0.00);
+const OrderSummary = ()=> {
+  const { OrderCost } = useOrderContext();
   const [DeliveryCost, setDeliveryCost] = useState(0);
   const TotalCost = OrderCost + DeliveryCost;
   const [open, setOpen] = React.useState(false);
@@ -70,7 +71,7 @@ const OrderSummary = () => {
               Wartość zamówienia
             </Typography>
             <Typography variant='body1' sx={OrderValueStyle}>
-              {OrderCost}
+              {OrderCost} gold
             </Typography>
           </Grid>
           <Grid container justifyContent="space-between">
@@ -78,7 +79,7 @@ const OrderSummary = () => {
               Dostawa
             </Typography>
             <Typography variant='body1' sx={OrderValueStyle}>
-              {DeliveryCost}
+              {DeliveryCost} gold
             </Typography>
           </Grid>
           <Grid container justifyContent="space-between">
@@ -86,7 +87,7 @@ const OrderSummary = () => {
               Łączna wartość zamówienia
             </Typography>
             <Typography variant='body1' sx={OrderValueStyle}>
-              {TotalCost}
+              {TotalCost} gold
             </Typography>
           </Grid>
           <ButtonSemiCircular>Zapłać</ButtonSemiCircular>

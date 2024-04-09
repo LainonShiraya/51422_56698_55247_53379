@@ -10,7 +10,7 @@ const CartPage = () => {
     <PageTemplate>
       <Typography variant='h2' sx={{marginTop: '4rem', color: 'black' }}>Mój koszyk</Typography>
       {/* <Toolbar sx={{ gap: '2rem', alignItems: 'flex-start' }}> */}
-      <Grid container spacing={2} >
+      <Grid container spacing={2} alignItems="flex-start" >
         <Grid
           item
             xs={8}
@@ -32,15 +32,11 @@ const CartPage = () => {
             flexDirection: 'column',
             gap: '1rem',
             marginBottom: '2rem',
-            
           }}
         >
-      <OrderSummary />
+      <OrderSummary/>
       </Grid>
       </Grid>
-      {/* <WeeklyPicked /> */}
-      {/* <ReccomendedSets /> */}
-      {/* </Toolbar> */}
     </PageTemplate>
   );
  };
