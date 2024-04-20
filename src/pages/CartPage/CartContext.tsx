@@ -92,12 +92,13 @@ interface OrderContextType {
 }
 
 const defaultOrderContext: OrderContextType = {
-  OrderCost: 0,
+  OrderCost: 6,
   updateOrderCost: () => {},
 };
 
 const OrderContext = React.createContext<OrderContextType>(defaultOrderContext);
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useOrderContext = () => React.useContext(OrderContext);
 
 export const OrderProvider: React.FC<{ children: ReactNode }> = ({ children }) => {

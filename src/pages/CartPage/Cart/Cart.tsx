@@ -1,6 +1,6 @@
 import { Box, Button, Divider, Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
-import CartData from '../../../pages/CartPage/Cart/CartStorage';
+//import CartData from '../../../pages/CartPage/Cart/CartStorage';
 import SnowWhite from '../../../assets/WeeklyPicked/SnowWhite.jpeg';
 import Technic from '../../../assets/WeeklyPicked/Technic.jpeg';
 import Senna from '../../../assets/WeeklyPicked/Senna.jpeg';
@@ -17,10 +17,9 @@ interface CartItem {
 
 const Cart: React.FC = () => {
 
-  const initialCartData: CartItem[] = JSON.parse(localStorage.getItem('CartData')) || CartData;
+  const initialCartData: CartItem[] = JSON.parse(localStorage.getItem('CartData') ?? '[]');
   const [cartData, setCartData] = useState(initialCartData);
   const { OrderCost, updateOrderCost } = useOrderContext();
-  const [TotalCost, setTotalCost] = useState(0);
 
   useEffect(() => {
     localStorage.setItem('CartData', JSON.stringify(cartData));
@@ -28,8 +27,8 @@ const Cart: React.FC = () => {
 
   useEffect(() => {
     const cost = cartData.reduce((total, item) => total + (item.price * item.quantity), 0);
-    setTotalCost(cost);
-  }, [cartData, setTotalCost]);
+    updateOrderCost(cost);
+  }, [cartData, updateOrderCost]);
 
 // updateOrderCost(TotalCost);
 
@@ -69,11 +68,6 @@ const addToCart = (newItem: CartItem) => {
     setCartData(newCartData);
   };
 
-  const setOrderCost = () => {
-    const newOrderCost = 100; // Przykładowa nowa wartość
-    updateOrderCost(newOrderCost);
-  };
-
   return (
     <ul>
       <button onClick={() => addToCart({ id: 1, name: 'Autuch', price: 10, image: Technic, quantity: 1})}>Add to Cart 1</button>
@@ -92,20 +86,19 @@ const addToCart = (newItem: CartItem) => {
         <li key={item.id}>
         <Grid container spacing={2}>
           <Grid item xs={3}>
-            <img src={item.image} alt={item.name} style={{ width: '14rem', height: 'auto' }} />
+            <img src={item.image} alt={item.name} style={{ width: '14rem', height: 'auto', paddingLeft: '1rem', borderRadius: '10%', }} />
           </Grid>
           <Grid item xs={9}>
                 <Grid container justifyContent="space-between">
                   <Grid item xs={11}>
                     <p style={{ textAlign: 'left', marginBottom: '2rem', color: 'black', fontFamily:'monospace', fontSize:31 }}>{item.name}</p>
                     <p style={{ textAlign: 'left', marginBottom: '1rem', color: 'black' }}>{item.price} gold</p>
+                    <p style={{ textAlign: 'left', marginBottom: '1rem', color: 'black' }}>{OrderCost} gold</p>
                     <Grid container justifyContent="space-between" xs={3} alignItems="center">
                      <Button variant="outlined" onClick={() => decreaseQuantity(item.id)}>-</Button>
                      <p style={{ textAlign: 'left', margin: 0, color: 'black' }}>{item.quantity}</p>
                      <Button variant="outlined" color="primary" onClick={() => increaseQuantity(item.id)}>+</Button>
                     </Grid>
-                    {/* <p style={{ textAlign: 'left', margin: 0, color: 'black' }}>{TotalCost}</p>
-                    <p style={{ textAlign: 'left', margin: 0, color: 'black' }}>{OrderCost}</p> */}
                   </Grid>
                   <Grid item xs={1}>
                   <Button startIcon={<DeleteSharpIcon />} sx={{ alignSelf: 'flex-start' }} onClick={() => removeFromCart(item.id)}></Button>
@@ -114,7 +107,7 @@ const addToCart = (newItem: CartItem) => {
           </Grid>
         </Grid>
       </li>
-      <Divider color="black"/>
+      <Divider color="primary"/>
       </Box>
       ))}
     </ul>
