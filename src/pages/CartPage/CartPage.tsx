@@ -2,14 +2,14 @@ import { Grid, Typography } from '@mui/material';
 import PageTemplate from '../PageTemplate/PageTemplate';
 import Cart from './Cart/Cart';
 import OrderSummary from './OrderSummary/OrderSummary';
-// import ReccomendedSets from './ReccomendedSets/ReccomendedSets';
-// import WeeklyPicked from './WeeklyPicked/WeeklyPicked';
+import { OrderProvider } from './CartContext';
+
 
 const CartPage = () => {
   return (
+    <OrderProvider>
     <PageTemplate>
       <Typography variant='h2' sx={{marginTop: '4rem', color: 'black' }}>Mój koszyk</Typography>
-      {/* <Toolbar sx={{ gap: '2rem', alignItems: 'flex-start' }}> */}
       <Grid container spacing={2} alignItems="flex-start" >
         <Grid
           item
@@ -38,6 +38,7 @@ const CartPage = () => {
       </Grid>
       </Grid>
     </PageTemplate>
+    </OrderProvider>
   );
  };
 

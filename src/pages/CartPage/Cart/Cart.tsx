@@ -1,6 +1,5 @@
-import { Box, Button, Divider, Grid } from '@mui/material';
+import { Box, Button, Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
-//import CartData from '../../../pages/CartPage/Cart/CartStorage';
 import SnowWhite from '../../../assets/WeeklyPicked/SnowWhite.jpeg';
 import Technic from '../../../assets/WeeklyPicked/Technic.jpeg';
 import Senna from '../../../assets/WeeklyPicked/Senna.jpeg';
@@ -16,10 +15,10 @@ interface CartItem {
 }
 
 const Cart: React.FC = () => {
-
+  
   const initialCartData: CartItem[] = JSON.parse(localStorage.getItem('CartData') ?? '[]');
   const [cartData, setCartData] = useState(initialCartData);
-  const { OrderCost, updateOrderCost } = useOrderContext();
+  const { updateOrderCost } = useOrderContext();
 
   useEffect(() => {
     localStorage.setItem('CartData', JSON.stringify(cartData));
@@ -29,8 +28,6 @@ const Cart: React.FC = () => {
     const cost = cartData.reduce((total, item) => total + (item.price * item.quantity), 0);
     updateOrderCost(cost);
   }, [cartData, updateOrderCost]);
-
-// updateOrderCost(TotalCost);
 
 const increaseQuantity = (itemId: number) => {
   const updatedItems = cartData.map((item) =>
@@ -53,7 +50,6 @@ const decreaseQuantity = (id: number) => {
   }
 };
 
-// Funkcja do dodawania nowego produktu do koszyka
 const addToCart = (newItem: CartItem) => {
   const existingItem = cartData.find((item) => item.id === newItem.id);
   if (existingItem) {
@@ -73,7 +69,6 @@ const addToCart = (newItem: CartItem) => {
       <button onClick={() => addToCart({ id: 1, name: 'Autuch', price: 10, image: Technic, quantity: 1})}>Add to Cart 1</button>
       <button onClick={() => addToCart({ id: 2, name: 'Auto', price: 20, image: Senna, quantity: 1})}>Add to Cart 2</button>
       <button onClick={() => addToCart({ id: 3, name: 'Domek', price: 30, image: SnowWhite, quantity: 1})}>Add to Cart 3</button>
-      {/* <button onClick={() => setOrderCost()}>update</button> */}
       {cartData.map((item: CartItem) => (
             <Box
             key={item.id}
@@ -83,7 +78,7 @@ const addToCart = (newItem: CartItem) => {
               marginBottom: '2rem',
             }}
           >
-        <li key={item.id}>
+        <li key={item.id} style={{ listStyle: 'none' }}>
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <img src={item.image} alt={item.name} style={{ width: '14rem', height: 'auto', paddingLeft: '1rem', borderRadius: '10%', }} />
@@ -93,11 +88,10 @@ const addToCart = (newItem: CartItem) => {
                   <Grid item xs={11}>
                     <p style={{ textAlign: 'left', marginBottom: '2rem', color: 'black', fontFamily:'monospace', fontSize:31 }}>{item.name}</p>
                     <p style={{ textAlign: 'left', marginBottom: '1rem', color: 'black' }}>{item.price} gold</p>
-                    <p style={{ textAlign: 'left', marginBottom: '1rem', color: 'black' }}>{OrderCost} gold</p>
                     <Grid container justifyContent="space-between" xs={3} alignItems="center">
-                     <Button variant="outlined" onClick={() => decreaseQuantity(item.id)}>-</Button>
+                     <Button variant="outlined" style={{ color: 'black', borderColor: 'black' }} onClick={() => decreaseQuantity(item.id)}>-</Button>
                      <p style={{ textAlign: 'left', margin: 0, color: 'black' }}>{item.quantity}</p>
-                     <Button variant="outlined" color="primary" onClick={() => increaseQuantity(item.id)}>+</Button>
+                     <Button variant="outlined" style={{ color: 'black', borderColor: 'black' }} onClick={() => increaseQuantity(item.id)}>+</Button>
                     </Grid>
                   </Grid>
                   <Grid item xs={1}>
@@ -107,7 +101,6 @@ const addToCart = (newItem: CartItem) => {
           </Grid>
         </Grid>
       </li>
-      <Divider color="primary"/>
       </Box>
       ))}
     </ul>
