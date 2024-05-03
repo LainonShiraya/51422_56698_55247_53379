@@ -4,6 +4,7 @@ import { ButtonSpecial } from '../../PageTemplate/Navbar/NavbarStyles';
 const Banner = () => {
   return (
     <Container
+      data-testid="banner-container"
       maxWidth='xl'
       sx={{
         backgroundImage: `url(${banner})`,

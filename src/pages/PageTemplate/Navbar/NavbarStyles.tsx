@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import SendIcon from '@mui/icons-material/Send';
 
 export const ContainerNavbarWrapper = ({
-  children,
+  children
 }: {
   children?: React.ReactNode;
 }) => (
