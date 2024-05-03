@@ -5,6 +5,8 @@ import { useParams } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import DropDown from './DropDown';
 import { useState } from 'react';
+import ProductDisplay from './ProductDisplay';
+import SideNavigation from './SideNavigation';
 
 const ShopPage = () => {
   const { sortCategory } = useParams();
@@ -109,59 +111,13 @@ const ShopPage = () => {
             item
             xs={2}
           >
-            {' '}
-            <Typography
-              variant='body2'
-              fontWeight='400'
-            >
-              Jeśli uwielbiasz ekskluzywne zestawy LEGO®, dostępne tylko w
-              naszym sklepie lub u wybranych partnerów, koniecznie sprawdź naszą
-              ofertę. Ekskluzywna kolekcja unikatowych klocków LEGO obudzi Twoją
-              kreatywność. W ofercie specjalnej LEGO znajdziesz limitowane
-              edycje zestawów klocków LEGO oraz limitowane produkty LEGO dla
-              chłopców i dziewczynek w wieku od 6 lat. Wśród dostępnych
-              produktów oferujemy również szeroką gamę zestawów LEGO dla
-              dorosłych konstruktorów. Na miłośników i miłośniczki science
-              fiction i fantastyki czekają zestawy LEGO® Star Wars™, Marvel i
-              Harry Potter™. Od niesamowitych modeli z serii Harry Potter™ po
-              urocze, kolekcjonerskie zestawy BrickHeadz™ — każdy znajdzie dla
-              siebie coś ekscytującego. W naszej ofercie znajdziesz też
-              wyjątkowy prezent dla każdego znajomego miłośnika LEGO: chłopca
-              czy dziewczynki w wieku od 6 lat, a nawet dorosłego konstruktora.
-              Lubisz superbohaterów? Zobacz nasze zestawy z serii Marvel w
-              ofercie specjalnej. Rzadsze i jeszcze bardziej imponujące modele
-              znajdziesz wśród zestawów LEGO® Star Wars™ z kolekcji Ultimate
-              Collector Series! Czytaj więcej
-            </Typography>
+            <SideNavigation />
           </Grid>
           <Grid
             item
             xs={10}
           >
-            {' '}
-            <Typography
-              variant='body2'
-              fontWeight='400'
-            >
-              Jeśli uwielbiasz ekskluzywne zestawy LEGO®, dostępne tylko w
-              naszym sklepie lub u wybranych partnerów, koniecznie sprawdź naszą
-              ofertę. Ekskluzywna kolekcja unikatowych klocków LEGO obudzi Twoją
-              kreatywność. W ofercie specjalnej LEGO znajdziesz limitowane
-              edycje zestawów klocków LEGO oraz limitowane produkty LEGO dla
-              chłopców i dziewczynek w wieku od 6 lat. Wśród dostępnych
-              produktów oferujemy również szeroką gamę zestawów LEGO dla
-              dorosłych konstruktorów. Na miłośników i miłośniczki science
-              fiction i fantastyki czekają zestawy LEGO® Star Wars™, Marvel i
-              Harry Potter™. Od niesamowitych modeli z serii Harry Potter™ po
-              urocze, kolekcjonerskie zestawy BrickHeadz™ — każdy znajdzie dla
-              siebie coś ekscytującego. W naszej ofercie znajdziesz też
-              wyjątkowy prezent dla każdego znajomego miłośnika LEGO: chłopca
-              czy dziewczynki w wieku od 6 lat, a nawet dorosłego konstruktora.
-              Lubisz superbohaterów? Zobacz nasze zestawy z serii Marvel w
-              ofercie specjalnej. Rzadsze i jeszcze bardziej imponujące modele
-              znajdziesz wśród zestawów LEGO® Star Wars™ z kolekcji Ultimate
-              Collector Series! Czytaj więcej
-            </Typography>
+            <ProductDisplay />
           </Grid>
         </Grid>
       </Container>

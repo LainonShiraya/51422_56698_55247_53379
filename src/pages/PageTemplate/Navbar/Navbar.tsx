@@ -8,12 +8,9 @@ import {
 import UpperNavbar from './UpperNavbar/UpperNavbar';
 import Sidebar from '../../../pages/PageTemplate/Sidebar/Sidebar';
 import { useState } from 'react';
-//import CartPage from '../../CartPage/CartPage';
-//import { Route } from 'react-router-dom';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link, Link as RouterLink } from 'react-router-dom';
 
 const Navbar = () => {
-  const navigate = useNavigate();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [sidebarValue, setSidebarValue] = useState('0');
 
@@ -30,14 +27,13 @@ const Navbar = () => {
       <UpperNavbar />
       <ContainerNavbarWrapper>
         <Toolbar sx={{ gap: '2rem' }}>
-          <img
-            src={logo}
-            width='82px'
-            style={{ cursor: 'pointer' }}
-            onClick={() => {
-              navigate('..');
-            }}
-          />
+          <Link to='..'>
+            <img
+              src={logo}
+              width='82px'
+              style={{ cursor: 'pointer' }}
+            />
+          </Link>
           <MenuItemUnderlined
             onClick={() => {
               changeSidebarValue('1');
