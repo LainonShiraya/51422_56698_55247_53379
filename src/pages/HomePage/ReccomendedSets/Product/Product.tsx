@@ -4,14 +4,11 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import Bird from '../../../../assets/ReccomendedSets/bird.jpg';
 import { Container, Rating } from '@mui/material';
 import { BoxTagStyles, ButtonAddToFavoriteStyles } from './ProductStyles';
+import { Doc } from '../../../../../convex/_generated/dataModel';
 
-const Product = () => {
-  const title = 'Zimorodek';
-  const cena = '299,99zł';
-  const image = Bird;
+const Product = ({ name, price, url }: Partial<Doc<'products'>>) => {
   return (
     <Card
       sx={{
@@ -45,8 +42,8 @@ const Product = () => {
               transform: 'scale(1.1)',
             },
           }}
-          image={image}
-          title={title}
+          image={url}
+          title={name}
         />
         <BoxTagStyles>Nowość</BoxTagStyles>
       </Container>
@@ -56,7 +53,7 @@ const Product = () => {
           variant='h5'
           component='div'
         >
-          {title}
+          {name}
         </Typography>
         <Rating
           name='size-medium'
@@ -67,7 +64,7 @@ const Product = () => {
           variant='h6'
           color='text.secondary'
         >
-          {cena}
+          {price}
         </Typography>
       </CardContent>
       <CardActions sx={{ textAlign: 'Left' }}>

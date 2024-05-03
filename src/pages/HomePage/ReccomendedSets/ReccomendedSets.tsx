@@ -6,7 +6,12 @@ import { ButtonSpecial } from '../../PageTemplate/Navbar/NavbarStyles';
 import SnowWhite from '../../../assets/WeeklyPicked/SnowWhite.jpeg';
 import OfferCard from '../WeeklyPicked/OfferCard/OfferCard';
 import KidsLego from '../../../assets/ReccomendedSets/kids-lego.jpeg';
+import { useQuery } from 'convex/react';
+import { api } from '../../../../convex/_generated/api';
+
 function ReccomendedSets() {
+  const products = useQuery(api.products.getProducts);
+  console.log('products', products);
   const weeklyOferts = [
     {
       title: 'Spełnienie sennych marzeń',
@@ -47,10 +52,14 @@ function ReccomendedSets() {
           padding: '0 !important',
         }}
       >
-        <Product />
-        <Product />
-        <Product />
-        <Product />
+        {products?.map((product) => (
+          <Product
+            key={product._id}
+            url={product.url}
+            name={product.name}
+            price={product.price}
+          />
+        ))}
       </Container>
       <Container
         maxWidth='xl'
