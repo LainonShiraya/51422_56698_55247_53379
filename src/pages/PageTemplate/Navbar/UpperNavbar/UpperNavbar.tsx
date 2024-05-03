@@ -8,10 +8,11 @@ import {
 import { useAuth0 } from '@auth0/auth0-react';
 import userIcon from '../../../../assets/user-icon.png';
 import pointsIcon from '../../../../assets/points-icon.svg';
+import { Link as RouterLink } from 'react-router-dom';
 
 const UpperNavbar = () => {
   const points = 100;
-  const { loginWithRedirect, isAuthenticated, user, logout } = useAuth0();
+  const { loginWithRedirect, isAuthenticated, user} = useAuth0();
 
   return (
     <AppBarUpperNavbarWrapper>
@@ -27,14 +28,14 @@ const UpperNavbar = () => {
         <ToolbarUpperNavbar>
           {isAuthenticated ? (
             <>
-              <ButtonNoStyles onClick={() => logout()}>
+                <Button component={RouterLink} to="/account" disableRipple sx={{minHeight: '0',padding: '0','&:hover': {backgroundColor: 'transparent',}, }}>
                 <Avatar
                   alt={user?.name}
                   src={userIcon}
                   sx={{ width: 24, height: 24, marginInline: '0.5rem' }}
                 />
                 {user?.name}
-              </ButtonNoStyles>
+              </Button>
               |
               <ButtonNoStyles>
                 <Avatar

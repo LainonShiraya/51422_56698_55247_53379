@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Theme } from './styles/MaterialUI/Theme';
 import HomePage from './pages/HomePage/HomePage';
 import CartPage from './pages/CartPage/CartPage';
+import AccountPage from './pages/AccountPage/AccountPage';
 
 function App() {
   return (
@@ -17,6 +18,10 @@ function App() {
           <Route
             path="/cart"
             element={<CartPage />}
+          />
+         <Route
+            path="/account"
+            element={<AccountPage />}
           />
         </Routes>
       </BrowserRouter>
