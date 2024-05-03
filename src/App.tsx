@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Theme } from './styles/MaterialUI/Theme';
 import HomePage from './pages/HomePage/HomePage';
 import CartPage from './pages/CartPage/CartPage';
+import ShopPage from './pages/ShopPage/ShopPage';
 
 function App() {
   return (
@@ -11,12 +12,16 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route
-            path="/"
+            path='/'
             element={<HomePage />}
           />
           <Route
-            path="/cart"
+            path='/cart'
             element={<CartPage />}
+          />
+          <Route
+            path='/:shop/:sortCategory?'
+            element={<ShopPage />}
           />
         </Routes>
       </BrowserRouter>

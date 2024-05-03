@@ -10,20 +10,20 @@ import Sidebar from '../../../pages/PageTemplate/Sidebar/Sidebar';
 import { useState } from 'react';
 //import CartPage from '../../CartPage/CartPage';
 //import { Route } from 'react-router-dom';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-    const [sidebarValue, setSidebarValue] = useState('0');
+  const navigate = useNavigate();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [sidebarValue, setSidebarValue] = useState('0');
 
-    const toggleSidebar = () => {
-      setIsSidebarOpen(!isSidebarOpen);
-    };
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
 
-    const changeSidebarValue = (newValue: string )=> {
-      setSidebarValue(newValue);
-    };
-
+  const changeSidebarValue = (newValue: string) => {
+    setSidebarValue(newValue);
+  };
 
   return (
     <AppBar position='sticky'>
@@ -33,22 +33,52 @@ const Navbar = () => {
           <img
             src={logo}
             width='82px'
+            style={{ cursor: 'pointer' }}
+            onClick={() => {
+              navigate('..');
+            }}
           />
-          <MenuItemUnderlined onClick={() => { changeSidebarValue('1'); toggleSidebar(); }}>BUY</MenuItemUnderlined>
-          <MenuItemUnderlined onClick={() => { changeSidebarValue('2'); toggleSidebar(); }}>SELL</MenuItemUnderlined>
-          <MenuItemUnderlined onClick={() => { changeSidebarValue('3'); toggleSidebar(); }}>PRE SALE</MenuItemUnderlined>
+          <MenuItemUnderlined
+            onClick={() => {
+              changeSidebarValue('1');
+              toggleSidebar();
+            }}
+          >
+            BUY
+          </MenuItemUnderlined>
+          <MenuItemUnderlined
+            onClick={() => {
+              changeSidebarValue('2');
+              toggleSidebar();
+            }}
+          >
+            SELL
+          </MenuItemUnderlined>
+          <MenuItemUnderlined
+            onClick={() => {
+              changeSidebarValue('3');
+              toggleSidebar();
+            }}
+          >
+            PRE SALE
+          </MenuItemUnderlined>
           <Sidebar
             isOpen={isSidebarOpen}
             toggleSidebar={toggleSidebar}
-            value={sidebarValue} 
-            changeValue={changeSidebarValue} 
+            value={sidebarValue}
+            changeValue={changeSidebarValue}
           />
           <ButtonSpecial>PROMOTIONS</ButtonSpecial>
         </Toolbar>
         <Toolbar>
           <Button>Search</Button>
           <Button>Like</Button>
-          <Button component={RouterLink} to="/cart">Cart</Button>
+          <Button
+            component={RouterLink}
+            to='/cart'
+          >
+            Cart
+          </Button>
         </Toolbar>
       </ContainerNavbarWrapper>
     </AppBar>
