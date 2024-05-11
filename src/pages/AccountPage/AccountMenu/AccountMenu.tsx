@@ -13,6 +13,7 @@ import { ListItemStyles } from './AccountMenuStyles';
 import { Button, Dialog, DialogActions, DialogTitle, Divider} from '@mui/material';
 import { useAuth0 } from '@auth0/auth0-react';
 import React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 
 
 export default function AccountMenu() {
@@ -34,7 +35,7 @@ export default function AccountMenu() {
       <nav aria-label="main mailbox folders">
         <List >
           <ListItemStyles>
-            <ListItemButton>
+            <ListItemButton component={RouterLink} to="/account">
               <ListItemIcon>
                 <HomeIcon />
               </ListItemIcon>
@@ -43,7 +44,7 @@ export default function AccountMenu() {
           </ListItemStyles>
           <Divider />
           <ListItemStyles>
-            <ListItemButton>
+            <ListItemButton component={RouterLink} to="/account/orders">
               <ListItemIcon>
                 <LocalShippingIcon />
               </ListItemIcon>
@@ -52,7 +53,7 @@ export default function AccountMenu() {
           </ListItemStyles>
           <Divider />
           <ListItemStyles>
-            <ListItemButton>
+            <ListItemButton component={RouterLink} to="/account/address">
               <ListItemIcon>
                 <ContactMailIcon />
               </ListItemIcon>
@@ -61,7 +62,7 @@ export default function AccountMenu() {
           </ListItemStyles>
           <Divider />
           <ListItemStyles>
-            <ListItemButton>
+            <ListItemButton component={RouterLink} to="/account/wishlist">
               <ListItemIcon>
                 <FavoriteIcon />
               </ListItemIcon>

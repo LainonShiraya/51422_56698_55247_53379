@@ -1,42 +1,24 @@
-import { Grid } from '@mui/material';
-import PageTemplate from '../PageTemplate/PageTemplate';
+import { Route, Routes } from 'react-router-dom';
+import MyOrders from './MyOrders/MyOrders';
+import MyAddress from './MyAddress/MyAddress';
+import AccountPageTemplate from './AccountPageTemplate';
 import GeneralInfo from './GeneralInfo/GeneralInfo';
-import AccountMenu from './AccountMenu/AccountMenu';
-// import ReccomendedSets from './ReccomendedSets/ReccomendedSets';
-// import WeeklyPicked from './WeeklyPicked/WeeklyPicked';
+import WishList from './WishList/WishList';
+import AccFoot from './AccountFoot';
 
 const AccountPage = () => {
   return (
-    <PageTemplate>
-      <Grid container spacing={2} alignItems="flex-start" sx={{marginTop: '4rem'}}>
-        <Grid
-          item
-            xs={3}
-          sx={{
-           // display: 'flex',
-            flexDirection: 'column',
-            gap: '1rem',
-            marginBottom: '2rem',
-           
-          }}
-        >
-      <AccountMenu />
-      </Grid>
-      <Grid
-          item
-            xs={9}
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '1rem',
-            marginBottom: '2rem',
-          }}
-        >
-      <GeneralInfo />
-      </Grid>
-      </Grid>
-    </PageTemplate>
+    <AccountPageTemplate>
+          <Routes>
+            <Route path="/" element={<GeneralInfo />} />
+            <Route path="/orders" element={<MyOrders />} />
+            <Route path="/address" element={<MyAddress />} />
+            <Route path="/wishlist" element={<WishList />} />
+          </Routes>
+          <AccFoot/>
+    </AccountPageTemplate>
+
   );
- };
+};
 
 export default AccountPage;

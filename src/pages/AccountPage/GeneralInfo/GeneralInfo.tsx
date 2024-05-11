@@ -1,6 +1,17 @@
-import { Box, Button, Container, Divider, Grid, Typography } from '@mui/material';
+import { Box, Button, Container, Grid, Typography } from '@mui/material';
 import { useAuth0 } from '@auth0/auth0-react';
+import { useState } from 'react';
 const GeneralInfo = () => {
+
+
+
+  const [Status] = useState(2);
+  const [OrderData] = useState(0);
+  const [OrderCost] = useState(0);
+  const [OrderNumber] = useState(0);
+
+
+
 
   const points = 100;
   const { user } = useAuth0();
@@ -16,17 +27,15 @@ const GeneralInfo = () => {
         display: 'flex',
       }}
     >
-  <Grid container spacing={0} justifyContent="center" alignItems="center">
-    <Grid item xs={6}>
+  <Grid container spacing={0} sx={{ display: "flex" }}>
+     <Grid item xs={6} >
       <Box
-        display="flex"
-        flexDirection="column"
         p={4}
-        sx={{ backgroundColor: 'grey', flex: 1, heigh: '100%' }}
-      >
+        sx={{ backgroundColor: '#E9E9E9', height: "56%"  }}
+     >
         <Typography variant="h5" textAlign="left" color={'black'}>
           Hej, uczestniku programu LEGO Insiders! (Tak, to Ty!)
-        </Typography>
+       </Typography>
       </Box>
     </Grid>
     <Grid item xs={6}>
@@ -35,13 +44,13 @@ const GeneralInfo = () => {
           <Box
             display="flex"
             p={1}
-            sx={{ backgroundColor: 'yellow', }}
+            sx={{ backgroundColor: '#FFD700' }}
           >
             <div>
-              <Typography variant="h6" textAlign="left" marginBottom="0.1rem" color={'black'} sx={{ display: 'block' }}>
+              <Typography variant="subtitle2" textAlign="left" marginBottom="0.1rem" color={'black'} sx={{ display: 'block' }}>
                 Witaj,
               </Typography>
-              <Typography variant="h5" textAlign="left" marginBottom="0.1rem" color={'black'} sx={{ display: 'block' }}>
+              <Typography variant="body1" textAlign="left" marginBottom="0.1rem" color={'black'} sx={{ display: 'block' }}>
                 {user?.name}
               </Typography>
             </div>
@@ -51,13 +60,13 @@ const GeneralInfo = () => {
           <Box
             display="flex"
             p={1}
-            sx={{backgroundColor: 'red', }}
+            sx={{backgroundColor: '#DF0000' }}
           >
             <div>
-              <Typography variant="h6" textAlign="left" marginBottom="0.1rem" color={'black'} sx={{ display: 'block' }}>
+              <Typography variant="subtitle2" textAlign="left" marginBottom="0.1rem" sx={{ display: 'block' }}>
                 Punkty LEGO Insiders
               </Typography>
-              <Typography variant="h6" textAlign="left" marginBottom="0.1rem" color={'black'} sx={{ display: 'block' }}>
+              <Typography variant="body1" textAlign="left" marginBottom="0.1rem" sx={{ display: 'block' }}>
                 {points}
               </Typography>
             </div>
@@ -72,8 +81,8 @@ const GeneralInfo = () => {
         sx={{backgroundColor: 'blue', }}
       >
         <div>
-          <Typography variant="h6" textAlign="center" marginBottom="1rem" sx={{ display: 'block' }}>
-            Twój numer karty LEGO Insiders :694202137
+          <Typography variant="subtitle2" textAlign="center" marginBottom="0.2rem" sx={{ display: 'block' }}>
+            Twój numer karty LEGO Insiders: 694202137
           </Typography>
           <Button
             variant="contained"
@@ -91,36 +100,58 @@ const GeneralInfo = () => {
     </Grid>
   </Grid>
   </Container>
+
+  <Typography variant="h5" textAlign="left" marginBottom="1rem" marginTop="2rem" color={'black'}>
+    Ostatnie zamówienie
+  </Typography>
+
+  <Container
+  // maxWidth='xl'
+  sx={{
+    display: 'flex',
+  }}
+>
   <Box
-  display="flex"
-  p={1}>
-  <Typography variant="h5" textAlign="left" marginBottom="1rem" color={'black'} sx={{ display: 'block' }}>
-   Obsługa klienta
-  </Typography>
+    p={2}
+    marginBottom="3rem"
+    sx={{ 
+      backgroundColor: '#E9E9E9', 
+      display: 'flex',
+      width: '100%', // Ustawienie szerokości na 100%
+    }}
+  >
+    <Grid container justifyContent="space-between">
+      <Grid item xs={9}>
+        <Typography variant="body1" textAlign="left" color={Status === 0 ? 'blue' : Status === 1 ? '#FFD700' : 'green'}>
+        {Status === 0 ? 'Opłacone' : Status === 1 ? 'W realizacji' : 'Wysłane'}
+        </Typography>
+        <Typography variant="body1" textAlign="left" color={'black'}>
+          Numer zamówienia: {OrderNumber}
+        </Typography>
+        <Typography variant="body1" textAlign="left" color={'black'}>
+          Data zamówinia: {OrderData}
+        </Typography>
+        <Typography variant="body1" textAlign="left"  marginBottom="2rem" color={'black'}>
+          Suma: {OrderCost}
+        </Typography>
+      </Grid>
+      <Grid item xs={3} sx={{ alignSelf: 'flex-end', justifySelf:"flex-end"}}>
+        <Button
+          variant="contained"
+          disableRipple
+          sx={{ alignSelf: 'flex-start' }}
+          style={{
+            borderRadius: '5px',
+            backgroundColor: 'blue',
+            color: 'white',
+          }}
+        >
+          Zobacz zamówienie
+        </Button>
+      </Grid>
+    </Grid>
   </Box>
-    <Divider variant="middle" />
-    <Grid container spacing={2}>
-  <Grid item xs={6}>
-  <Typography variant="h6" textAlign="left" marginTop="1rem" color={'black'} sx={{ display: 'block' }}>
-   Dostawa i zwrot produktów
-  </Typography>
-  </Grid>
-  <Grid item xs={6}>
-  <Typography variant="h6" textAlign="left" marginTop="1rem" color={'black'} sx={{ display: 'block' }}>
-   Skontaktuj się z nami
-  </Typography>
-  </Grid>
-  <Grid item xs={6}>
-  <Typography variant="h6" textAlign="left" marginTop="0.1rem" color={'black'} sx={{ display: 'block' }}>
-   Często zadawane pytania
-  </Typography>
-  </Grid>
-  <Grid item xs={6}>
-  <Typography variant="h6" textAlign="left" marginTop="0.1rem" color={'black'} sx={{ display: 'block' }}>
-   Części zamienne i instrukcje
-  </Typography>
-  </Grid>
-</Grid>
+</Container>
 </div>
 
   );

@@ -20,7 +20,7 @@ function App() {
             element={<CartPage />}
           />
          <Route
-            path="/account"
+            path="/account/*"
             element={<AccountPage />}
           />
         </Routes>
