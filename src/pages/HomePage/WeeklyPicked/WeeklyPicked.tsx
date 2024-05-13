@@ -1,30 +1,9 @@
 import { Container, Typography } from '@mui/material';
 import OfferCard from './OfferCard/OfferCard';
-import SnowWhite from '../../../assets/WeeklyPicked/SnowWhite.jpeg';
-import Technic from '../../../assets/WeeklyPicked/Technic.jpeg';
-import Senna from '../../../assets/WeeklyPicked/Senna.jpeg';
-
+import { useQuery } from 'convex/react';
+import { api } from '../../../../convex/_generated/api';
 const WeeklyPicked = () => {
-  const weeklyOferts = [
-    {
-      title: 'Chatka Królewny Śnieżki i siedmiu krasnoludków',
-      description:
-        'Przywołaj miłe wspomnienia, budując nowy, czarujący zestaw oparty na kultowym filmie.',
-      image: SnowWhite,
-    },
-    {
-      title: 'Podkręć kreatywne emocje',
-      description:
-        'Złóż hołd światu sportów motorowych za pomocą nowych zestawów LEGO® Icons.',
-      image: Senna,
-    },
-    {
-      title: 'Daj się ponieść kreatywności',
-      description:
-        'Nowe zestawy LEGO® Technic zawierają mnóstwo autentycznych detali dla fanów motoryzacji.',
-      image: Technic,
-    },
-  ];
+  const weeklyOferts = useQuery(api.products.getTop3WeeklySets);
   return (
     <Container maxWidth='xl'>
       <Typography
@@ -44,8 +23,9 @@ const WeeklyPicked = () => {
           margin: 'auto',
         }}
       >
-        {weeklyOferts.map((ofert) => (
+        {weeklyOferts?.map((ofert) => (
           <OfferCard
+            key={ofert._id}
             image={ofert.image}
             title={ofert.title}
             description={ofert.description}

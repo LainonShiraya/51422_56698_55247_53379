@@ -3,35 +3,14 @@ import Container from '@mui/material/Container';
 import Product from './Product/Product';
 import girlHeroImage from '../../../assets/ReccomendedSets/girl-hero.jpeg';
 import { ButtonSpecial } from '../../PageTemplate/Navbar/NavbarStyles';
-import SnowWhite from '../../../assets/WeeklyPicked/SnowWhite.jpeg';
 import OfferCard from '../WeeklyPicked/OfferCard/OfferCard';
 import KidsLego from '../../../assets/ReccomendedSets/kids-lego.jpeg';
 import { useQuery } from 'convex/react';
 import { api } from '../../../../convex/_generated/api';
 
 function ReccomendedSets() {
-  const products = useQuery(api.products.getProducts);
-  console.log('products', products);
-  const weeklyOferts = [
-    {
-      title: 'Spełnienie sennych marzeń',
-      description:
-        'Przywołaj miłe wspomnienia, budując nowy, czarujący zestaw oparty na kultowym filmie.',
-      image: SnowWhite,
-    },
-    {
-      title: 'Spełnienie sennych marzeń',
-      description:
-        'Przywołaj miłe wspomnienia, budując nowy, czarujący zestaw oparty na kultowym filmie.',
-      image: SnowWhite,
-    },
-    {
-      title: 'Spełnienie sennych marzeń',
-      description:
-        'Przywołaj miłe wspomnienia, budując nowy, czarujący zestaw oparty na kultowym filmie.',
-      image: SnowWhite,
-    },
-  ];
+  const products = useQuery(api.products.getReccomendedTop4Products);
+  const weeklyOferts = useQuery(api.products.getTop3WeeklySets);
   return (
     <Container maxWidth='xl'>
       <Typography
@@ -175,8 +154,9 @@ function ReccomendedSets() {
               margin: 'auto',
             }}
           >
-            {weeklyOferts.map((ofert) => (
+            {weeklyOferts?.map((ofert) => (
               <OfferCard
+                key={ofert._id}
                 image={ofert.image}
                 title={ofert.title}
                 description={ofert.description}

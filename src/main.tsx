@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
 import { Auth0Provider } from '@auth0/auth0-react';
-import { ConvexProvider, ConvexReactClient } from 'convex/react';
+import { ConvexReactClient } from 'convex/react';
+import { ConvexProviderWithAuth0 } from 'convex/react-auth0';
+
 const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL as string);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
@@ -17,9 +19,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       useRefreshTokens
       cacheLocation='localstorage'
     >
-      <ConvexProvider client={convex}>
+      <ConvexProviderWithAuth0 client={convex}>
         <App />
-      </ConvexProvider>
+      </ConvexProviderWithAuth0>
     </Auth0Provider>
   </React.StrictMode>
 );
