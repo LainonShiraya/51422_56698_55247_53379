@@ -7,11 +7,13 @@ export default defineSchema({
     price: v.float64(),
     url: v.string(),
     sold: v.number(),
+    categories: v.array(v.id('category'))
   }).index("by_sold", ["sold"]),
   users: defineTable({
     userEmail: v.string(),
     legoPoints: v.number(),
-    cart: v.array(v.id('products')),
+    cart: v.array(v.object({productId: v.id('products'), count: v.number()})),
+    favorites: v.array(v.object({productId: v.id('products'), count: v.number()})),
     tokenIdentifier: v.string(),
     Name: v.string(),
   }),
@@ -19,5 +21,10 @@ export default defineSchema({
     title: v.string(),
     description: v.string(),
     image: v.string(),
+  }),
+  category: defineTable({
+    name: v.string(),
+    tag: v.string(),
+    description: v.string(),
   })
 });

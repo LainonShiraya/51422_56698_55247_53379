@@ -37,6 +37,7 @@ function ReccomendedSets() {
             url={product.url}
             name={product.name}
             price={product.price}
+            _id={product._id}
           />
         ))}
       </Container>

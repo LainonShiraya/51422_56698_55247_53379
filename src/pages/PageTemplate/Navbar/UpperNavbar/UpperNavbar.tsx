@@ -17,9 +17,16 @@ const UpperNavbar = () => {
   const { user, logout, loginWithRedirect, isAuthenticated } = useAuth0();
   const getConvexUser = useMutation(api.users.getConvexUser);
   const [userConvex, setUserConvex] = useState<{
-    cart: Id<'products'>[];
+    cart: {
+      productId: Id<'products'>;
+      count: number;
+    }[];
     legoPoints: number;
-  } | null>({ legoPoints: 0, cart: [] });
+    favorites: {
+      productId: Id<'products'>;
+      count: number;
+    }[];
+  } | null>({ legoPoints: 0, cart: [], favorites: [] });
   useEffect(() => {
     async function createOrUpdateUser() {
       return await getConvexUser();

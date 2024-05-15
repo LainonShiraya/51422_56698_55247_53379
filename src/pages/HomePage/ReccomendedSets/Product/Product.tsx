@@ -7,8 +7,22 @@ import Typography from '@mui/material/Typography';
 import { Container, Rating } from '@mui/material';
 import { BoxTagStyles, ButtonAddToFavoriteStyles } from './ProductStyles';
 import { Doc } from '../../../../../convex/_generated/dataModel';
+import { useConvexAuth, useMutation } from 'convex/react';
+import { api } from '../../../../../convex/_generated/api';
+import { useAuth0 } from '@auth0/auth0-react';
 
-const Product = ({ name, price, url }: Partial<Doc<'products'>>) => {
+const Product = ({ name, price, url, _id }: Partial<Doc<'products'>>) => {
+  const addProduct = useMutation(api.users.addProductToUserCart);
+  const { isAuthenticated, isLoading } = useConvexAuth();
+  const { loginWithRedirect } = useAuth0();
+  const tryToAddProduct = async () => {
+    if (isAuthenticated && !isLoading) {
+      await addProduct({ newProductId: _id! });
+    }
+    if (!isAuthenticated && !isLoading) {
+      loginWithRedirect();
+    }
+  };
   return (
     <Card
       sx={{
@@ -82,6 +96,7 @@ const Product = ({ name, price, url }: Partial<Doc<'products'>>) => {
               backgroundColor: 'transparent',
             },
           }}
+          onClick={tryToAddProduct}
         >
           Dodaj do Koszyka
         </Button>
