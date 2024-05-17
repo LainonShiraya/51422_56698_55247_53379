@@ -107,7 +107,7 @@ export const getConvexUser = mutation({
 
   /// Helper functions
 
-  function getUserCartAndPointsFromDoc(authorDoc: Doc<'users'>) {
+  export function getUserCartAndPointsFromDoc(authorDoc: Doc<'users'>) {
     return {
       cart: authorDoc.cart,
       legoPoints:authorDoc.legoPoints,
