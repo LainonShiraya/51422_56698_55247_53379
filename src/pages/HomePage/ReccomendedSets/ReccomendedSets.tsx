@@ -3,30 +3,14 @@ import Container from '@mui/material/Container';
 import Product from './Product/Product';
 import girlHeroImage from '../../../assets/ReccomendedSets/girl-hero.jpeg';
 import { ButtonSpecial } from '../../PageTemplate/Navbar/NavbarStyles';
-import SnowWhite from '../../../assets/WeeklyPicked/SnowWhite.jpeg';
 import OfferCard from '../WeeklyPicked/OfferCard/OfferCard';
 import KidsLego from '../../../assets/ReccomendedSets/kids-lego.jpeg';
+import { useQuery } from 'convex/react';
+import { api } from '../../../../convex/_generated/api';
+
 function ReccomendedSets() {
-  const weeklyOferts = [
-    {
-      title: 'Spełnienie sennych marzeń',
-      description:
-        'Przywołaj miłe wspomnienia, budując nowy, czarujący zestaw oparty na kultowym filmie.',
-      image: SnowWhite,
-    },
-    {
-      title: 'Spełnienie sennych marzeń',
-      description:
-        'Przywołaj miłe wspomnienia, budując nowy, czarujący zestaw oparty na kultowym filmie.',
-      image: SnowWhite,
-    },
-    {
-      title: 'Spełnienie sennych marzeń',
-      description:
-        'Przywołaj miłe wspomnienia, budując nowy, czarujący zestaw oparty na kultowym filmie.',
-      image: SnowWhite,
-    },
-  ];
+  const products = useQuery(api.products.getReccomendedTop4Products);
+  const weeklyOferts = useQuery(api.products.getTop3WeeklySets);
   return (
     <Container maxWidth='xl'>
       <Typography
@@ -47,10 +31,16 @@ function ReccomendedSets() {
           padding: '0 !important',
         }}
       >
-        <Product />
-        <Product />
-        <Product />
-        <Product />
+        {products?.map((product) => (
+          <Product
+            key={product._id}
+            url={product.url}
+            name={product.name}
+            price={product.price}
+            _id={product._id}
+            categories={product.categories}
+          />
+        ))}
       </Container>
       <Container
         maxWidth='xl'
@@ -166,12 +156,14 @@ function ReccomendedSets() {
               margin: 'auto',
             }}
           >
-            {weeklyOferts.map((ofert) => (
+            {weeklyOferts?.map((ofert) => (
               <OfferCard
+                key={ofert._id}
                 image={ofert.image}
                 title={ofert.title}
                 description={ofert.description}
                 color='white'
+                category={ofert.category!}
               />
             ))}
           </Container>
