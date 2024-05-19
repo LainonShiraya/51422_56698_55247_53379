@@ -6,13 +6,33 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Container, Rating } from '@mui/material';
 import { BoxTagStyles, ButtonAddToFavoriteStyles } from './ProductStyles';
-import { Doc } from '../../../../../convex/_generated/dataModel';
-import { useConvexAuth, useMutation } from 'convex/react';
+import { Doc, Id } from '../../../../../convex/_generated/dataModel';
+import { useConvexAuth, useMutation, useQuery } from 'convex/react';
 import { api } from '../../../../../convex/_generated/api';
 import { useAuth0 } from '@auth0/auth0-react';
+import { useParams } from 'react-router-dom';
 
-const Product = ({ name, price, url, _id }: Partial<Doc<'products'>>) => {
+const Product = ({
+  name,
+  price,
+  url,
+  _id,
+  categories,
+}: {
+  name: string;
+  price: number;
+  url: string;
+  _id: Id<'products'>;
+  categories: Partial<Doc<'category'>[]>;
+}) => {
   const addProduct = useMutation(api.users.addProductToUserCart);
+  const { category } = useParams();
+  const AddOrRemoveToFavorites = useMutation(
+    api.products.AddOrRemoveToFavorites
+  );
+  const isFavorite = useQuery(api.products.checkIsFavorite, {
+    productId: _id!,
+  });
   const { isAuthenticated, isLoading } = useConvexAuth();
   const { loginWithRedirect } = useAuth0();
   const tryToAddProduct = async () => {
@@ -23,6 +43,15 @@ const Product = ({ name, price, url, _id }: Partial<Doc<'products'>>) => {
       loginWithRedirect();
     }
   };
+  const tryToAddorRemoveFavorites = async () => {
+    if (isAuthenticated && !isLoading) {
+      await AddOrRemoveToFavorites({ productId: _id! });
+    }
+    if (!isAuthenticated && !isLoading) {
+      loginWithRedirect();
+    }
+  };
+  const categoryToDisplay = category ?? categories[0]?.tag;
   return (
     <Card
       sx={{
@@ -45,7 +74,10 @@ const Product = ({ name, price, url, _id }: Partial<Doc<'products'>>) => {
           justifyContent: 'flex-start',
         }}
       >
-        <ButtonAddToFavoriteStyles />
+        <ButtonAddToFavoriteStyles
+          isFavorite={isFavorite}
+          onClick={tryToAddorRemoveFavorites}
+        />
         <CardMedia
           sx={{
             height: 200,
@@ -59,7 +91,7 @@ const Product = ({ name, price, url, _id }: Partial<Doc<'products'>>) => {
           image={url}
           title={name}
         />
-        <BoxTagStyles>Nowość</BoxTagStyles>
+        <BoxTagStyles>{categoryToDisplay}</BoxTagStyles>
       </Container>
       <CardContent sx={{ border: 'none', textAlign: 'Left' }}>
         <Typography

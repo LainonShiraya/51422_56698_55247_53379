@@ -38,6 +38,7 @@ function ReccomendedSets() {
             name={product.name}
             price={product.price}
             _id={product._id}
+            categories={product.categories}
           />
         ))}
       </Container>
@@ -162,6 +163,7 @@ function ReccomendedSets() {
                 title={ofert.title}
                 description={ofert.description}
                 color='white'
+                category={ofert.category!}
               />
             ))}
           </Container>

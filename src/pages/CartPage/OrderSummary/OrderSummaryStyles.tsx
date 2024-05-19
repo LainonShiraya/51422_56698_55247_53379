@@ -33,33 +33,38 @@ import Button from '@mui/material/Button';
 //   </Button>
 // );
 
-
 export const ButtonSemiCircular = ({
   children,
+  onClick,
+  disabled,
 }: {
   children?: React.ReactNode;
+  onClick?: () => void;
+  disabled?: boolean;
 }) => (
-    <Button
-      variant="contained"
-      disableRipple
-      style={{
-        borderRadius: '20px 20px 20px 20px', // Ustawiamy 50% dla każdego rogu górnego
-        width: '100%',
-      }}
-    >
-      {children}
-    </Button>
-  );
+  <Button
+    variant='contained'
+    disableRipple
+    disabled={disabled}
+    style={{
+      borderRadius: '20px 20px 20px 20px', // Ustawiamy 50% dla każdego rogu górnego
+      width: '100%',
+    }}
+    onClick={onClick}
+  >
+    {children}
+  </Button>
+);
 
-  // export const OrderSummaryStyle = {
-  //   color: 'black',
-  //   listStyleType: 'none',
-  //   lineHeight: '3'
-  // };
+// export const OrderSummaryStyle = {
+//   color: 'black',
+//   listStyleType: 'none',
+//   lineHeight: '3'
+// };
 
-  // eslint-disable-next-line react-refresh/only-export-components
-  export const OrderValueStyle = {
-    color: 'black',
-    textAlign: 'right',
-    fontWeight: 'bold'
-  };
+// eslint-disable-next-line react-refresh/only-export-components
+export const OrderValueStyle = {
+  color: 'black',
+  textAlign: 'right',
+  fontWeight: 'bold',
+};
