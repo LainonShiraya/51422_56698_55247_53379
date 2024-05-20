@@ -5,6 +5,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import SendIcon from '@mui/icons-material/Send';
+import { Doc } from '../../../../../convex/_generated/dataModel';
 
 export default function OfferCard({
   title,
@@ -12,12 +13,14 @@ export default function OfferCard({
   image,
   size = 'lg',
   color = 'black',
+  category,
 }: {
   title: string;
   description: string;
   image: string;
   size?: 'lg' | 'sm';
   color?: string;
+  category: Partial<Doc<'category'>>;
 }) {
   return (
     <Card
@@ -63,6 +66,7 @@ export default function OfferCard({
               backgroundColor: 'transparent',
             },
           }}
+          href={`.../shop/category=${category.tag}`}
         >
           Do sklepu
         </Button>

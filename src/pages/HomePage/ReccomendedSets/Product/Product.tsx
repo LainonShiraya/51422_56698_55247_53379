@@ -4,14 +4,54 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import Bird from '../../../../assets/ReccomendedSets/bird.jpg';
 import { Container, Rating } from '@mui/material';
 import { BoxTagStyles, ButtonAddToFavoriteStyles } from './ProductStyles';
+import { Doc, Id } from '../../../../../convex/_generated/dataModel';
+import { useConvexAuth, useMutation, useQuery } from 'convex/react';
+import { api } from '../../../../../convex/_generated/api';
+import { useAuth0 } from '@auth0/auth0-react';
+import { useParams } from 'react-router-dom';
 
-const Product = () => {
-  const title = 'Zimorodek';
-  const cena = '299,99zł';
-  const image = Bird;
+const Product = ({
+  name,
+  price,
+  url,
+  _id,
+  categories,
+}: {
+  name: string;
+  price: number;
+  url: string;
+  _id: Id<'products'>;
+  categories: Partial<Doc<'category'>[]>;
+}) => {
+  const addProduct = useMutation(api.users.addProductToUserCart);
+  const { category } = useParams();
+  const AddOrRemoveToFavorites = useMutation(
+    api.products.AddOrRemoveToFavorites
+  );
+  const isFavorite = useQuery(api.products.checkIsFavorite, {
+    productId: _id!,
+  });
+  const { isAuthenticated, isLoading } = useConvexAuth();
+  const { loginWithRedirect } = useAuth0();
+  const tryToAddProduct = async () => {
+    if (isAuthenticated && !isLoading) {
+      await addProduct({ newProductId: _id! });
+    }
+    if (!isAuthenticated && !isLoading) {
+      loginWithRedirect();
+    }
+  };
+  const tryToAddorRemoveFavorites = async () => {
+    if (isAuthenticated && !isLoading) {
+      await AddOrRemoveToFavorites({ productId: _id! });
+    }
+    if (!isAuthenticated && !isLoading) {
+      loginWithRedirect();
+    }
+  };
+  const categoryToDisplay = category ?? categories[0]?.tag;
   return (
     <Card
       sx={{
@@ -34,7 +74,10 @@ const Product = () => {
           justifyContent: 'flex-start',
         }}
       >
-        <ButtonAddToFavoriteStyles />
+        <ButtonAddToFavoriteStyles
+          isFavorite={isFavorite}
+          onClick={tryToAddorRemoveFavorites}
+        />
         <CardMedia
           sx={{
             height: 200,
@@ -45,10 +88,10 @@ const Product = () => {
               transform: 'scale(1.1)',
             },
           }}
-          image={image}
-          title={title}
+          image={url}
+          title={name}
         />
-        <BoxTagStyles>Nowość</BoxTagStyles>
+        <BoxTagStyles>{categoryToDisplay}</BoxTagStyles>
       </Container>
       <CardContent sx={{ border: 'none', textAlign: 'Left' }}>
         <Typography
@@ -56,7 +99,7 @@ const Product = () => {
           variant='h5'
           component='div'
         >
-          {title}
+          {name}
         </Typography>
         <Rating
           name='size-medium'
@@ -67,7 +110,7 @@ const Product = () => {
           variant='h6'
           color='text.secondary'
         >
-          {cena}
+          {price}
         </Typography>
       </CardContent>
       <CardActions sx={{ textAlign: 'Left' }}>
@@ -85,6 +128,7 @@ const Product = () => {
               backgroundColor: 'transparent',
             },
           }}
+          onClick={tryToAddProduct}
         >
           Dodaj do Koszyka
         </Button>

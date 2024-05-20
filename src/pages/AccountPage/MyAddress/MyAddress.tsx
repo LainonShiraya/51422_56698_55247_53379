@@ -3,14 +3,16 @@ import { Box, Button, Container, FormControl, InputLabel, MenuItem, Select, Sele
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 import EditIcon from '@mui/icons-material/Edit';
+import { saveToLocalStorage, loadFromLocalStorage } from './MyAddressStorage';
 
 interface AdresItem {
   fname: string;
   sname: string;
-  phone: string; // Zmienione na string dla uproszczenia pracy z TextField
+  phone: string;
   country: string;
   adres: string;
 }
+
 
 const MyAddress: React.FC = () => {
   const [showBox, setShowBox] = useState(true);
@@ -23,21 +25,21 @@ const MyAddress: React.FC = () => {
   });
 
   useEffect(() => {
-    const storedData = localStorage.getItem('formData');
+    const storedData = loadFromLocalStorage<AdresItem>('formData');
     if (storedData) {
-      setFormData(JSON.parse(storedData));
+      setFormData(storedData);
     }
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem('formData', JSON.stringify(formData));
-  }, [formData]);
 
   const handleButtonClick = () => {
+    if (isFormComplete()) {
+      saveToLocalStorage('formData', formData);
+    }
     setShowBox(!showBox);
   };
 
-  const handleChange = (event: SelectChangeEvent) => {
+  const handleChange = (event: SelectChangeEvent<string>) => {
     setFormData({
       ...formData,
       country: event.target.value as string
@@ -78,17 +80,15 @@ const MyAddress: React.FC = () => {
             width: '100%',
           }}
         >
-          {showBox && (
+          {showBox ? (
             <Box sx={{ textAlign: 'center' }}>
-                <Typography variant="h6" color={'black'}>{formData.fname} {formData.sname} {formData.phone}</Typography>
-                <Typography variant="h6" color={'black'}>{formData.adres} {formData.country}</Typography>
-                <Button variant="text" onClick={handleButtonClick}>
-                  {isFormComplete() ? <EditIcon /> : <AddIcon />}
-                </Button>
+              <Typography variant="h6" color={'black'}>{formData.fname} {formData.sname} {formData.phone}</Typography>
+              <Typography variant="h6" color={'black'}>{formData.adres} {formData.country}</Typography>
+              <Button variant="text" onClick={handleButtonClick}>
+                {isFormComplete() ? <EditIcon /> : <AddIcon />}
+              </Button>
             </Box>
-          )}
-
-          {!showBox && (
+          ) : (
             <Container>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <TextField
@@ -151,14 +151,14 @@ const MyAddress: React.FC = () => {
                   sx={{ marginTop: '1rem' }}
                 />
               </div>
-              <div style={{ display: 'flex', justifyContent: 'right', marginTop: '1rem' , justifySelf:'flex-end'}}>
-              <Button 
-                variant="text" 
-                onClick={handleButtonClick}
-                disabled={!isFormComplete()}
-              >
-                Zapisz
-              </Button>
+              <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '1rem' }}>
+                <Button 
+                  variant="text" 
+                  onClick={handleButtonClick}
+                  disabled={!isFormComplete()}
+                >
+                  Zapisz
+                </Button>
               </div>
             </Container>
           )}

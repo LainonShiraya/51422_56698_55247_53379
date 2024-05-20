@@ -9,11 +9,9 @@ const GeneralInfo = () => {
   const [OrderData] = useState(0);
   const [OrderCost] = useState(0);
   const [OrderNumber] = useState(0);
-
-
-
-
-  const points = 100;
+  const [userConvex] = useState<{
+    legoPoints: number;
+  } | null>({ legoPoints: 0});
   const { user } = useAuth0();
 
   return (
@@ -67,7 +65,7 @@ const GeneralInfo = () => {
                 Punkty LEGO Insiders
               </Typography>
               <Typography variant="body1" textAlign="left" marginBottom="0.1rem" sx={{ display: 'block' }}>
-                {points}
+              {userConvex?.legoPoints}
               </Typography>
             </div>
           </Box>
