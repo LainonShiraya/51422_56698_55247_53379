@@ -1,5 +1,11 @@
 import {
+  Button,
   Collapse,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   Divider,
   Grid,
   List,
@@ -13,20 +19,36 @@ import { useState } from 'react';
 import React from 'react';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import { useOrderContext } from '../CartContext';
+import { useMutation, useQuery } from 'convex/react';
+import { api } from '../../../../convex/_generated/api';
+import { Doc } from '../../../../convex/_generated/dataModel';
 
 const OrderSummary = () => {
   const { OrderCost } = useOrderContext();
-  const [DeliveryCost, setDeliveryCost] = useState(0);
-  const TotalCost = (OrderCost + DeliveryCost).toFixed(2);
+  const [deliveryType, setDeliveryType] = useState<Partial<Doc<'delivery'>>>({
+    price: 0,
+    type: 'Odbiór Osobisty',
+  });
+  const TotalCost = (OrderCost + deliveryType.price! ?? '0').toFixed(2);
   const [open, setOpen] = React.useState(false);
-
+  const [modalOpen, setModalOpen] = React.useState(false);
+  const deliveryTypes = useQuery(api.orders.getDeliveries);
+  const finalizeOrder = useMutation(api.orders.SumarizeOrder);
   const OpenClick = () => {
     setOpen(!open);
   };
 
-  const setDelivery = (cost: number) => {
-    setDeliveryCost(cost);
+  const setDelivery = (delivery: Partial<Doc<'delivery'>>) => {
+    setDeliveryType(delivery);
   };
+  const handleClickOpen = () => {
+    setModalOpen(true);
+  };
+
+  const handleClose = () => {
+    setModalOpen(false);
+  };
+  console.log(deliveryType);
 
   return (
     <Container
@@ -40,6 +62,34 @@ const OrderSummary = () => {
         display: 'flex',
       }}
     >
+      <Dialog
+        open={modalOpen}
+        onClose={handleClose}
+        aria-labelledby='alert-dialog-title'
+        aria-describedby='alert-dialog-description'
+      >
+        <DialogTitle id='alert-dialog-title'>
+          {'Czy na pewno chcesz złożyć zamówienie?'}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id='alert-dialog-description'>
+            Potwierdź zamówienie kliknięciem Tak, złoży to zamówienie w bazie
+            danych oraz wyczyści Twój koszyk
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Anuluj</Button>
+          <Button
+            onClick={() => {
+              handleClose();
+              finalizeOrder({ deliveryId: deliveryType._id! });
+            }}
+            autoFocus
+          >
+            Złóż zamówienie
+          </Button>
+        </DialogActions>
+      </Dialog>
       <Grid container>
         <Grid
           item
@@ -81,42 +131,21 @@ const OrderSummary = () => {
               component='div'
               disablePadding
             >
-              <ListItemButton
-                sx={{ pl: 4 }}
-                onClick={() => {
-                  setDelivery(100);
-                  OpenClick();
-                }}
-              >
-                <ListItemText
-                  sx={{ color: 'black' }}
-                  primary='Courier (100)'
-                />
-              </ListItemButton>
-              <ListItemButton
-                sx={{ pl: 4 }}
-                onClick={() => {
-                  setDelivery(10);
-                  OpenClick();
-                }}
-              >
-                <ListItemText
-                  sx={{ color: 'black' }}
-                  primary='Boxmat (10)'
-                />
-              </ListItemButton>
-              <ListItemButton
-                sx={{ pl: 4 }}
-                onClick={() => {
-                  setDelivery(0);
-                  OpenClick();
-                }}
-              >
-                <ListItemText
-                  sx={{ color: 'black' }}
-                  primary='Odbiór osobisty (0)'
-                />
-              </ListItemButton>
+              {deliveryTypes?.map((delivery) => (
+                <ListItemButton
+                  sx={{ pl: 4 }}
+                  selected={deliveryType._id === delivery._id}
+                  onClick={() => {
+                    setDelivery(delivery);
+                    OpenClick();
+                  }}
+                >
+                  <ListItemText
+                    sx={{ color: 'black' }}
+                    primary={`${delivery.type} (${delivery.price.toFixed(2)})`}
+                  />
+                </ListItemButton>
+              ))}
             </List>
           </Collapse>
           <Divider
@@ -154,7 +183,7 @@ const OrderSummary = () => {
               variant='body1'
               sx={OrderValueStyle}
             >
-              {DeliveryCost} gold
+              {deliveryType.price} gold
             </Typography>
           </Grid>
           <Grid
@@ -174,7 +203,12 @@ const OrderSummary = () => {
               {TotalCost} gold
             </Typography>
           </Grid>
-          <ButtonSemiCircular>Zapłać</ButtonSemiCircular>
+          <ButtonSemiCircular
+            onClick={handleClickOpen}
+            disabled={!deliveryType._id}
+          >
+            Zapłać
+          </ButtonSemiCircular>
           <Divider
             variant='middle'
             component='li'
@@ -185,7 +219,12 @@ const OrderSummary = () => {
           >
             Finalizacja ekspresowa
           </Typography>
-          <ButtonSemiCircular>Zapłać z PayPal</ButtonSemiCircular>
+          <ButtonSemiCircular
+            onClick={handleClickOpen}
+            disabled={!deliveryType._id}
+          >
+            Zapłać z PayPal
+          </ButtonSemiCircular>
         </Grid>
       </Grid>
     </Container>

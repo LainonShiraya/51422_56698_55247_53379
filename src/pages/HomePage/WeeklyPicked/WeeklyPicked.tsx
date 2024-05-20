@@ -29,6 +29,7 @@ const WeeklyPicked = () => {
             image={ofert.image}
             title={ofert.title}
             description={ofert.description}
+            category={ofert.category!}
           />
         ))}
       </Container>
