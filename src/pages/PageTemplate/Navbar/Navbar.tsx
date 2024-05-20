@@ -1,4 +1,4 @@
-import { AppBar, Button, Toolbar } from '@mui/material';
+import { AppBar, Badge, Button, IconButton, Toolbar } from '@mui/material';
 import logo from '../../../assets/logo.png';
 import {
   ContainerNavbarWrapper,
@@ -8,11 +8,15 @@ import {
 import UpperNavbar from './UpperNavbar/UpperNavbar';
 import Sidebar from '../../../pages/PageTemplate/Sidebar/Sidebar';
 import { useState } from 'react';
-import { Link, Link as RouterLink } from 'react-router-dom';
-
+import { useConvexAuth } from 'convex/react';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import ConvexButtonShopIcon from './ConvexButtonShopIcon';
+import { useAuth0 } from '@auth0/auth0-react';
 const Navbar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [sidebarValue, setSidebarValue] = useState('0');
+  const { isAuthenticated } = useConvexAuth();
+  const { loginWithRedirect } = useAuth0();
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -69,12 +73,23 @@ const Navbar = () => {
         <Toolbar>
           <Button>Search</Button>
           <Button>Like</Button>
-          <Button
-            component={RouterLink}
-            to='/cart'
-          >
-            Cart
-          </Button>
+          {isAuthenticated ? (
+            <ConvexButtonShopIcon />
+          ) : (
+            <IconButton
+              onClick={() => {
+                loginWithRedirect();
+              }}
+              size='large'
+            >
+              <Badge
+                badgeContent={0}
+                color='secondary'
+              >
+                <ShoppingCartIcon />
+              </Badge>
+            </IconButton>
+          )}
         </Toolbar>
       </ContainerNavbarWrapper>
     </AppBar>
