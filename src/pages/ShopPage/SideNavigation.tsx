@@ -5,11 +5,22 @@ import {
   Checkbox,
   Container,
   Divider,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
   Typography,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { useQuery } from 'convex/react';
+import { api } from '../../../convex/_generated/api';
+import { Dispatch, SetStateAction } from 'react';
 
-const SideNavigation = () => {
+const SideNavigation = ({
+  setSortingCategory,
+}: {
+  setSortingCategory: Dispatch<SetStateAction<string | undefined>>;
+}) => {
+  const sortPage = useQuery(api.category.getCategories);
   return (
     <Container
       maxWidth='xl'
@@ -20,7 +31,7 @@ const SideNavigation = () => {
       }}
     >
       <Divider sx={{ height: '2px' }} />
-      <Checkbox /> Pokaż tylko dostępne
+      {/* <Checkbox /> Pokaż tylko dostępne */}
       <Accordion
         defaultExpanded
         sx={{ backgroundColor: 'inherit', border: 'none', boxShadow: 'none' }}
@@ -33,18 +44,31 @@ const SideNavigation = () => {
           <Typography fontWeight='700'>Rodzaj Produktu</Typography>
         </AccordionSummary>
         <AccordionDetails sx={{ padding: '0 !important', textWrap: 'wrap' }}>
-          <Checkbox /> Pokaż tylko dostępne
-          <Checkbox /> Pokaż tylko dostępne
-          <Checkbox /> Pokaż tylko dostępne
-          <Checkbox /> Pokaż tylko dostępne
-          <Checkbox /> Pokaż tylko dostępne
+          <RadioGroup
+            onChange={(e) => {
+              setSortingCategory(e.target.value);
+            }}
+          >
+            {sortPage?.map((sortType) => (
+              <FormControlLabel
+                value={sortType.tag}
+                control={<Radio />}
+                label={sortType.tag}
+              />
+            ))}
+            <FormControlLabel
+              value={''}
+              control={<Radio />}
+              label={'Every'}
+            />
+          </RadioGroup>
         </AccordionDetails>
-        <AccordionSummary
+        {/* <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls='panel1-content'
           id='panel1-header'
-        >
-          <Typography fontWeight='700'>Cena</Typography>
+        > */}
+        {/* <Typography fontWeight='700'>Cena</Typography>
         </AccordionSummary>
         <AccordionDetails sx={{ padding: '0 !important', textWrap: 'wrap' }}>
           <Checkbox /> Pokaż tylko dostępne
@@ -52,8 +76,8 @@ const SideNavigation = () => {
           <Checkbox /> Pokaż tylko dostępne
           <Checkbox /> Pokaż tylko dostępne
           <Checkbox /> Pokaż tylko dostępne
-        </AccordionDetails>
-        <AccordionSummary
+        </AccordionDetails> */}
+        {/* <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls='panel1-content'
           id='panel1-header'
@@ -66,8 +90,8 @@ const SideNavigation = () => {
           <Checkbox /> Pokaż tylko dostępne
           <Checkbox /> Pokaż tylko dostępne
           <Checkbox /> Pokaż tylko dostępne
-        </AccordionDetails>
-        <AccordionSummary
+        </AccordionDetails> */}
+        {/* <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls='panel1-content'
           id='panel1-header'
@@ -80,7 +104,7 @@ const SideNavigation = () => {
           <Checkbox /> Pokaż tylko dostępne
           <Checkbox /> Pokaż tylko dostępne
           <Checkbox /> Pokaż tylko dostępne
-        </AccordionDetails>
+        </AccordionDetails> */}
       </Accordion>
     </Container>
   );

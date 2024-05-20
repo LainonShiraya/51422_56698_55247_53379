@@ -54,8 +54,22 @@ export default function DropDown({
   sort,
   setSort,
 }: {
-  sort: string;
-  setSort: React.Dispatch<React.SetStateAction<string>>;
+  sort: {
+    name: string;
+    type: {
+      index: 'by_sold' | 'by_price' | 'by_name' | 'by_creation_time';
+      order: 'desc' | 'asc';
+    };
+  };
+  setSort: React.Dispatch<
+    React.SetStateAction<{
+      name: string;
+      type: {
+        index: 'by_sold' | 'by_price' | 'by_name' | 'by_creation_time';
+        order: 'desc' | 'asc';
+      };
+    }>
+  >;
 }) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -66,13 +80,23 @@ export default function DropDown({
     setAnchorEl(null);
   };
   const sortCategories = [
-    { name: 'Najnowsze' },
-    { name: 'Cena: Od najniższej do najwyższej' },
-    { name: 'Cena: Od najwyższej do najniższej' },
-    { name: 'Liczba elementów: od najwyższej' },
-    { name: 'Ocena' },
-    { name: 'Alfabetycznie' },
-  ];
+    { name: 'Najnowsze', type: { index: 'by_creation_time', order: 'desc' } },
+    {
+      name: 'Cena: Od najniższej do najwyższej',
+      type: { index: 'by_price', order: 'asc' },
+    },
+    {
+      name: 'Cena: Od najwyższej do najniższej',
+      type: { index: 'by_price', order: 'desc' },
+    },
+    { name: 'Alfabetycznie', type: { index: 'by_name', order: 'asc' } },
+  ] as {
+    name: string;
+    type: {
+      index: 'by_sold' | 'by_price' | 'by_name' | 'by_creation_time';
+      order: 'desc' | 'asc';
+    };
+  }[];
   return (
     <div>
       <Button
@@ -85,7 +109,7 @@ export default function DropDown({
         onClick={handleClick}
         endIcon={<KeyboardArrowDownIcon />}
       >
-        Sortuj według: {sort}
+        Sortuj według: {sort.name}
       </Button>
       <StyledMenu
         id='demo-customized-menu'
@@ -99,9 +123,9 @@ export default function DropDown({
       >
         {sortCategories.map((category) => (
           <MenuItem
-            onClick={(e) => {
+            onClick={() => {
               handleClose();
-              setSort(e.currentTarget.textContent!);
+              setSort(category);
             }}
             disableRipple
           >

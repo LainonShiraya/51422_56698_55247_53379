@@ -7,13 +7,27 @@ import DropDown from './DropDown';
 import { useState } from 'react';
 import ProductDisplay from './ProductDisplay';
 import SideNavigation from './SideNavigation';
+import { useQuery } from 'convex/react';
+import { api } from '../../../convex/_generated/api';
 
 const ShopPage = () => {
-  const { sortCategory } = useParams();
-  const [sort, setSort] = useState('Polecane');
-  enum sortCategoriesEnum {
-    promotions = 'Oferty Specjalne',
-  }
+  const { sortCategoryParam } = useParams();
+  const [sort, setSort] = useState<{
+    name: string;
+    type: {
+      index: 'by_sold' | 'by_price' | 'by_name' | 'by_creation_time';
+      order: 'desc' | 'asc';
+    };
+  }>({ name: 'Najnowsze', type: { index: 'by_sold', order: 'desc' } });
+  const [sortingCategory, setSortingCategory] = useState(sortCategoryParam);
+
+  const sortPage = useQuery(api.category.getCategoryInfo, {
+    tag: sortingCategory,
+  });
+  const productsToDisplayByCategory = useQuery(
+    api.products.getProductsBySelectedCategory,
+    { productTag: sortingCategory, sortType: sort.type }
+  );
   return (
     <PageTemplate>
       <Container maxWidth='xl'>
@@ -31,9 +45,7 @@ const ShopPage = () => {
             fontWeight='700'
             sx={{ textTransform: 'capitalize' }}
           >
-            {sortCategory! in sortCategoriesEnum
-              ? sortCategory
-              : 'Nasze Produkty'}
+            {sortPage ? sortPage.name : 'Nasze Produkty'}
           </Typography>
         </Container>
         <Container
@@ -49,32 +61,40 @@ const ShopPage = () => {
             fontWeight='600'
             marginBlock='1rem'
           >
-            {sortCategory! in sortCategoriesEnum
-              ? sortCategory
-              : 'Nasze Produkty'}
+            {sortPage ? sortPage.name : 'Nasze Produkty'}
           </Typography>
-          <Typography
-            variant='body2'
-            fontWeight='400'
-          >
-            Jeśli uwielbiasz ekskluzywne zestawy LEGO®, dostępne tylko w naszym
-            sklepie lub u wybranych partnerów, koniecznie sprawdź naszą ofertę.
-            Ekskluzywna kolekcja unikatowych klocków LEGO obudzi Twoją
-            kreatywność. W ofercie specjalnej LEGO znajdziesz limitowane edycje
-            zestawów klocków LEGO oraz limitowane produkty LEGO dla chłopców i
-            dziewczynek w wieku od 6 lat. Wśród dostępnych produktów oferujemy
-            również szeroką gamę zestawów LEGO dla dorosłych konstruktorów. Na
-            miłośników i miłośniczki science fiction i fantastyki czekają
-            zestawy LEGO® Star Wars™, Marvel i Harry Potter™. Od niesamowitych
-            modeli z serii Harry Potter™ po urocze, kolekcjonerskie zestawy
-            BrickHeadz™ — każdy znajdzie dla siebie coś ekscytującego. W naszej
-            ofercie znajdziesz też wyjątkowy prezent dla każdego znajomego
-            miłośnika LEGO: chłopca czy dziewczynki w wieku od 6 lat, a nawet
-            dorosłego konstruktora. Lubisz superbohaterów? Zobacz nasze zestawy
-            z serii Marvel w ofercie specjalnej. Rzadsze i jeszcze bardziej
-            imponujące modele znajdziesz wśród zestawów LEGO® Star Wars™ z
-            kolekcji Ultimate Collector Series! Czytaj więcej
-          </Typography>
+          {sortPage ? (
+            <Typography
+              variant='body2'
+              fontWeight='400'
+            >
+              {sortPage.description}
+            </Typography>
+          ) : (
+            <Typography
+              variant='body2'
+              fontWeight='400'
+            >
+              Jeśli uwielbiasz ekskluzywne zestawy LEGO®, dostępne tylko w
+              naszym sklepie lub u wybranych partnerów, koniecznie sprawdź naszą
+              ofertę. Ekskluzywna kolekcja unikatowych klocków LEGO obudzi Twoją
+              kreatywność. W ofercie specjalnej LEGO znajdziesz limitowane
+              edycje zestawów klocków LEGO oraz limitowane produkty LEGO dla
+              chłopców i dziewczynek w wieku od 6 lat. Wśród dostępnych
+              produktów oferujemy również szeroką gamę zestawów LEGO dla
+              dorosłych konstruktorów. Na miłośników i miłośniczki science
+              fiction i fantastyki czekają zestawy LEGO® Star Wars™, Marvel i
+              Harry Potter™. Od niesamowitych modeli z serii Harry Potter™ po
+              urocze, kolekcjonerskie zestawy BrickHeadz™ — każdy znajdzie dla
+              siebie coś ekscytującego. W naszej ofercie znajdziesz też
+              wyjątkowy prezent dla każdego znajomego miłośnika LEGO: chłopca
+              czy dziewczynki w wieku od 6 lat, a nawet dorosłego konstruktora.
+              Lubisz superbohaterów? Zobacz nasze zestawy z serii Marvel w
+              ofercie specjalnej. Rzadsze i jeszcze bardziej imponujące modele
+              znajdziesz wśród zestawów LEGO® Star Wars™ z kolekcji Ultimate
+              Collector Series! Czytaj więcej
+            </Typography>
+          )}
         </Container>
       </Container>
       <Container
@@ -96,7 +116,7 @@ const ShopPage = () => {
             fontWeight='700'
             sx={{ alignSelf: 'flex-end' }}
           >
-            Wyświetlane produkty: 72
+            Wyświetlane produkty: {productsToDisplayByCategory?.length ?? 0}
           </Typography>
           <DropDown
             setSort={setSort}
@@ -111,13 +131,15 @@ const ShopPage = () => {
             item
             xs={2}
           >
-            <SideNavigation />
+            <SideNavigation setSortingCategory={setSortingCategory} />
           </Grid>
           <Grid
             item
             xs={10}
           >
-            <ProductDisplay />
+            <ProductDisplay
+              productsToDisplayByCategory={productsToDisplayByCategory}
+            />
           </Grid>
         </Grid>
       </Container>

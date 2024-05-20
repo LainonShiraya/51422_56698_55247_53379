@@ -20,7 +20,7 @@ function App() {
             element={<CartPage />}
           />
           <Route
-            path='/:shop/:sortCategory?'
+            path='/shop/sortCategory?/:sortCategory?'
             element={<ShopPage />}
           />
         </Routes>

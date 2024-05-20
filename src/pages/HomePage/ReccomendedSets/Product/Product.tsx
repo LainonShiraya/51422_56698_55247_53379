@@ -4,7 +4,14 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Container, Rating } from '@mui/material';
+import {
+  Container,
+  Rating,
+  Tooltip,
+  TooltipProps,
+  styled,
+  tooltipClasses,
+} from '@mui/material';
 import { BoxTagStyles, ButtonAddToFavoriteStyles } from './ProductStyles';
 import { Doc, Id } from '../../../../../convex/_generated/dataModel';
 import { useConvexAuth, useMutation, useQuery } from 'convex/react';
@@ -51,6 +58,19 @@ const Product = ({
       loginWithRedirect();
     }
   };
+  const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
+    <Tooltip
+      {...props}
+      classes={{ popper: className }}
+    />
+  ))(({ theme }) => ({
+    [`& .${tooltipClasses.tooltip}`]: {
+      backgroundColor: theme.palette.common.white,
+      color: 'rgba(0, 0, 0, 0.87)',
+      boxShadow: theme.shadows[1],
+      fontSize: 16,
+    },
+  }));
   const categoryToDisplay = category ?? categories[0]?.tag;
   return (
     <Card
@@ -94,13 +114,27 @@ const Product = ({
         <BoxTagStyles>{categoryToDisplay}</BoxTagStyles>
       </Container>
       <CardContent sx={{ border: 'none', textAlign: 'Left' }}>
-        <Typography
-          gutterBottom
-          variant='h5'
-          component='div'
-        >
-          {name}
-        </Typography>
+        {name.length > 21 ? (
+          <LightTooltip title={name}>
+            <Typography
+              gutterBottom
+              variant='h5'
+              component='div'
+              noWrap
+            >
+              {name}
+            </Typography>
+          </LightTooltip>
+        ) : (
+          <Typography
+            gutterBottom
+            variant='h5'
+            component='div'
+            noWrap
+          >
+            {name}
+          </Typography>
+        )}
         <Rating
           name='size-medium'
           defaultValue={5}

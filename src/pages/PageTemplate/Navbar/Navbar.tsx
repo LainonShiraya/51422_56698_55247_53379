@@ -12,6 +12,7 @@ import { useConvexAuth } from 'convex/react';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ConvexButtonShopIcon from './ConvexButtonShopIcon';
 import { useAuth0 } from '@auth0/auth0-react';
+import { Link } from 'react-router-dom';
 const Navbar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [sidebarValue, setSidebarValue] = useState('0');
