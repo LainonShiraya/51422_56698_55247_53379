@@ -5,6 +5,7 @@ import { Theme } from './styles/MaterialUI/Theme';
 import HomePage from './pages/HomePage/HomePage';
 import CartPage from './pages/CartPage/CartPage';
 import AccountPage from './pages/AccountPage/AccountPage';
+import SettingsPage from './pages/AccountPage/SettingsPage/SettingsPage';
 
 function App() {
   return (
@@ -22,6 +23,10 @@ function App() {
          <Route
             path="/account/*"
             element={<AccountPage />}
+          />
+          <Route
+            path="/settings"
+            element={<SettingsPage />}
           />
         </Routes>
       </BrowserRouter>

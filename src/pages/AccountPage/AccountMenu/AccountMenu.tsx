@@ -71,7 +71,7 @@ export default function AccountMenu() {
           </ListItemStyles>
           <Divider />
           <ListItemStyles>
-            <ListItemButton>
+            <ListItemButton component={RouterLink} to="/settings">
               <ListItemIcon>
                 <SettingsIcon />
               </ListItemIcon>
