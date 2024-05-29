@@ -12,13 +12,11 @@ import { useConvexAuth } from 'convex/react';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ConvexButtonShopIcon from './ConvexButtonShopIcon';
 import { useAuth0 } from '@auth0/auth0-react';
-import { useNavigate } from 'react-router-dom';
 const Navbar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [sidebarValue, setSidebarValue] = useState('0');
   const { isAuthenticated } = useConvexAuth();
   const { loginWithRedirect } = useAuth0();
-  const navigate = useNavigate(); 
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
