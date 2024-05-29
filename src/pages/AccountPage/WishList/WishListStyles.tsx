@@ -41,14 +41,6 @@ export const ButtonAddToFavoriteStyles = ({
         }}
       />
     )}
-    <Typography
-      sx={{ marginLeft: '1rem' }}
-      variant='subtitle2'
-      fontWeight='700'
-    >
-      {' '}
-      Dodaj do listy życzeń{' '}
-    </Typography>
   </Button>
 );
 
