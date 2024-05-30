@@ -134,7 +134,14 @@ function ReccomendedSets() {
               Zobacz, jak dziewczynki budują bez granic, i inspiruj je do
               kreatywnej zabawy bez ograniczeń.
             </Typography>
-            <ButtonSpecial hasIcon>Do sklepu </ButtonSpecial>
+            <ButtonSpecial
+              hasIcon
+              onClick={() => {
+                navigate('../shop');
+              }}
+            >
+              Do sklepu{' '}
+            </ButtonSpecial>
           </Grid>
         </Grid>
         <Container
