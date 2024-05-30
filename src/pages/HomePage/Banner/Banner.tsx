@@ -1,7 +1,9 @@
 import { Box, Container, Grid, Typography } from '@mui/material';
 import banner from '../../../assets/banner.jpeg';
 import { ButtonSpecial } from '../../PageTemplate/Navbar/NavbarStyles';
+import { useNavigate } from 'react-router-dom';
 const Banner = () => {
+  const navigate = useNavigate();
   return (
     <Container
       maxWidth='xl'
@@ -39,7 +41,14 @@ const Banner = () => {
           <Box
             sx={{ display: 'flex', gap: '1rem', flexDirection: 'flex-start' }}
           >
-            <ButtonSpecial hasIcon>Do sklepu </ButtonSpecial>
+            <ButtonSpecial
+              hasIcon
+              onClick={() => {
+                navigate('../shop');
+              }}
+            >
+              Do sklepu{' '}
+            </ButtonSpecial>
             <ButtonSpecial hasIcon> Więcej </ButtonSpecial>
           </Box>
         </Grid>

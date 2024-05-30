@@ -14,6 +14,29 @@ export const getProducts = query({
         }));
     }
 })
+// "by_sold" | "by_price" | "by_name" | "by_creation_time" 
+export const getProductsBySelectedCategory = query({
+  args: { productTag: v.optional(v.string()), sortType : v.object({index:v.string(), order:v.string()}) },
+  handler: async (ctx,args) => {
+    const {db} = ctx;
+    const sort = args.sortType.index as "by_sold" | "by_price" | "by_name" | "by_creation_time" ;
+    const order = args.sortType.order as 'desc' | 'asc';
+    const categoryTable = await db.query('category').collect();
+    const categoriesOfProduct = new Map(categoryTable.map(category => [category._id.toString(), category]));
+    const products = await ctx.db.query('products').withIndex(sort).order(order).collect();
+    if(!args.productTag){
+      return products.map( product => ({
+        ...product,
+        categories: product.categories.map(categoryId => categoriesOfProduct.get(categoryId.toString()))
+      }));
+    }
+    return products.map( product => ({
+      ...product,
+      categories: product.categories.map(categoryId => categoriesOfProduct.get(categoryId.toString()))
+    })).filter(product => product.categories.find(cat => cat?.tag === args.productTag))
+  }
+})
+
 
 export const getReccomendedTop4Products = query({
     handler: async (ctx) => {

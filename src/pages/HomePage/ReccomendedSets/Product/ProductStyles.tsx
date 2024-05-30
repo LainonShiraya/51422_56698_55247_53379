@@ -5,13 +5,16 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 export const ButtonAddToFavoriteStyles = ({
   onClick,
   isFavorite,
+  disabled,
 }: {
   onClick: () => void;
   isFavorite: boolean | undefined;
+  disabled?: boolean;
 }) => (
   <Button
     disableRipple
     onClick={onClick}
+    disabled={disabled}
     sx={{
       minHeight: '0',
       padding: '0',
