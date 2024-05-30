@@ -25,6 +25,32 @@ Projekt polega na stworzeniu i uruchomieniu sklepu internetowego, który będzie
 - Dostępność
 - Monitorowanie zużycia bazy
 
+## Wymagania do uruchomienia projektu
+Po klucze potrzebne do uruchomienia aplikacji prosimy o kontakt z @Konrad Rzodkiewicz
+- npm install w root
+- Utworzenie auth.config.ts w folderze convex
+```
+export default {
+    providers: [
+      {
+        domain: "",
+        applicationID: "",
+      },
+    ]
+  };
+```
+- Utworzenie .env.local w root
+```
+VITE_DOMAIN=
+VITE_CLIENT_ID=
+```
+- Utworzenie .env w root
+```
+CONVEX_DEPLOYMENT=
+
+VITE_CONVEX_URL=
+```
+
 ## Schemat bazy danych
   ![image](https://github.com/LainonShiraya/51422_56698_55247_53379_54352/assets/59234543/dd7b9947-a360-4bc0-8d65-788a29bd920c)
 
