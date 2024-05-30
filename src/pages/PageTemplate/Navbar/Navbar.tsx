@@ -81,7 +81,6 @@ const Navbar = () => {
           </ButtonSpecial>
         </Toolbar>
         <Toolbar>
-          <Button>Search</Button>
           <PopupState
             variant='popover'
             popupId='demo-popup-menu'
