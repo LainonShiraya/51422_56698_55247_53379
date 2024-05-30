@@ -97,6 +97,7 @@ const Product = ({
         <ButtonAddToFavoriteStyles
           isFavorite={isFavorite}
           onClick={tryToAddorRemoveFavorites}
+          disabled={categoryToDisplay === 'presale'}
         />
         <CardMedia
           sx={{
@@ -162,6 +163,7 @@ const Product = ({
               backgroundColor: 'transparent',
             },
           }}
+          disabled={categoryToDisplay === 'presale'}
           onClick={tryToAddProduct}
         >
           Dodaj do Koszyka

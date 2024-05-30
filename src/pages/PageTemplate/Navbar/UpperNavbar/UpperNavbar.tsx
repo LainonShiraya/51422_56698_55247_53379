@@ -1,4 +1,4 @@
-import { Avatar, Button } from '@mui/material';
+import { Avatar } from '@mui/material';
 import {
   AppBarUpperNavbarWrapper,
   ButtonNoStyles,
@@ -40,14 +40,14 @@ const UpperNavbar = () => {
   return (
     <AppBarUpperNavbarWrapper>
       <ContainerUpperNavbarWrapper>
-        <ToolbarUpperNavbar>
+        {/* <ToolbarUpperNavbar>
           <Button>{`<-`} Strefa Zabawy </Button>
         </ToolbarUpperNavbar>
         <ToolbarUpperNavbar>
           <ButtonNoStyles>{`<`}</ButtonNoStyles>BEZPŁATNA dostawa zamówień o
           wartości powyżej 200 zł!*Więcej
           <ButtonNoStyles>{`>`}</ButtonNoStyles>
-        </ToolbarUpperNavbar>
+        </ToolbarUpperNavbar> */}
         <ToolbarUpperNavbar>
           {isAuthenticated ? (
             <>

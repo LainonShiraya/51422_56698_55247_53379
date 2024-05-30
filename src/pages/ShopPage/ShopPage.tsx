@@ -4,14 +4,15 @@ import Typography from '@mui/material/Typography';
 import { useParams } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import DropDown from './DropDown';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ProductDisplay from './ProductDisplay';
 import SideNavigation from './SideNavigation';
 import { useQuery } from 'convex/react';
 import { api } from '../../../convex/_generated/api';
+import { Id } from '../../../convex/_generated/dataModel';
 
 const ShopPage = () => {
-  const { sortCategoryParam } = useParams();
+  const { sortCategory } = useParams();
   const [sort, setSort] = useState<{
     name: string;
     type: {
@@ -19,15 +20,30 @@ const ShopPage = () => {
       order: 'desc' | 'asc';
     };
   }>({ name: 'Najnowsze', type: { index: 'by_sold', order: 'desc' } });
-  const [sortingCategory, setSortingCategory] = useState(sortCategoryParam);
-
-  const sortPage = useQuery(api.category.getCategoryInfo, {
+  const [sortingCategory, setSortingCategory] = useState(sortCategory);
+  const sortPageQuery = useQuery(api.category.getCategoryInfo, {
     tag: sortingCategory,
   });
+  const [sortPage, setSortPage] = useState<{
+    _id: Id<'category'>;
+    _creationTime: number;
+    name: string;
+    description: string;
+    tag: string;
+  }>();
   const productsToDisplayByCategory = useQuery(
     api.products.getProductsBySelectedCategory,
     { productTag: sortingCategory, sortType: sort.type }
   );
+  console.log(sortCategory);
+  useEffect(() => {
+    if (sortPageQuery) {
+      setSortPage(sortPageQuery);
+    }
+  }, [sortPageQuery]);
+  useEffect(() => {
+    setSortingCategory(sortCategory);
+  }, [sortCategory]);
   return (
     <PageTemplate>
       <Container maxWidth='xl'>

@@ -2,7 +2,6 @@ import Container from '@mui/material/Container';
 //import Tab from '@mui/material/Tab';
 import React from 'react';
 
-
 export const ContainerSidebarWrapper = ({
   children,
 }: {
@@ -44,13 +43,17 @@ export const ContainerSidebarWrapper = ({
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const TabStyle = {
-        fontWeight: 'bold',
-        color: 'black',
-        marginRight: '16px',
+  fontWeight: 'bold',
+  color: 'black',
+  marginRight: '16px',
 };
 // eslint-disable-next-line react-refresh/only-export-components
 export const TabPanelStyle = {
   color: 'black',
   listStyleType: 'none',
-  lineHeight: '3'
+  lineHeight: '3',
+  display: 'flex',
+  flexDirection: 'column',
+  textAlign: 'left',
+  gap: '1rem',
 };
