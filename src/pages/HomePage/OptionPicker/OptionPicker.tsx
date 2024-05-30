@@ -11,12 +11,12 @@ const OptionPicker = () => {
     {
       img: News,
       title: 'Nowości',
-      tag: 'new',
+      tag: 'New',
     },
     {
       img: Oferts,
       title: 'Oferty',
-      tag: 'sale',
+      tag: 'Sale',
     },
     {
       img: Disney,
@@ -26,7 +26,7 @@ const OptionPicker = () => {
     {
       img: StarWars,
       title: 'Star Wars™',
-      tag: 'starWars',
+      tag: 'StarWars',
     },
   ];
 

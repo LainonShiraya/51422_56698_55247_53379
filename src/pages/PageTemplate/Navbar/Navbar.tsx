@@ -60,7 +60,7 @@ const Navbar = () => {
           </MenuItemUnderlined>
           <MenuItemUnderlined
             onClick={() => {
-              navigate(`../shop/sortCategory/presale`);
+              navigate(`../shop/sortCategory/Presale`);
             }}
           >
             PRE SALE
@@ -73,7 +73,7 @@ const Navbar = () => {
           />
           <ButtonSpecial
             onClick={() => {
-              navigate(`../shop/sortCategory/sale`);
+              navigate(`../shop/sortCategory/Sale`);
             }}
           >
             PROMOTIONS

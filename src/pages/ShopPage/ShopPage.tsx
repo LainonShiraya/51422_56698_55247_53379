@@ -35,7 +35,6 @@ const ShopPage = () => {
     api.products.getProductsBySelectedCategory,
     { productTag: sortingCategory, sortType: sort.type }
   );
-  console.log(sortCategory);
   useEffect(() => {
     if (sortPageQuery) {
       setSortPage(sortPageQuery);
@@ -155,6 +154,7 @@ const ShopPage = () => {
           >
             <ProductDisplay
               productsToDisplayByCategory={productsToDisplayByCategory}
+              categorySortedBy={sortingCategory}
             />
           </Grid>
         </Grid>

@@ -4,8 +4,10 @@ import Product from '../HomePage/ReccomendedSets/Product/Product';
 
 const ProductDisplay = ({
   productsToDisplayByCategory,
+  categorySortedBy,
 }: {
   productsToDisplayByCategory: any;
+  categorySortedBy?: string;
 }) => {
   return (
     <Container
@@ -24,6 +26,7 @@ const ProductDisplay = ({
           price={product.price}
           _id={product._id}
           categories={product.categories}
+          categorySortedBy={categorySortedBy}
         />
       ))}
     </Container>

@@ -17,7 +17,6 @@ import { Doc, Id } from '../../../../../convex/_generated/dataModel';
 import { useConvexAuth, useMutation, useQuery } from 'convex/react';
 import { api } from '../../../../../convex/_generated/api';
 import { useAuth0 } from '@auth0/auth0-react';
-import { useParams } from 'react-router-dom';
 
 const Product = ({
   name,
@@ -25,15 +24,16 @@ const Product = ({
   url,
   _id,
   categories,
+  categorySortedBy,
 }: {
   name: string;
   price: number;
   url: string;
   _id: Id<'products'>;
   categories: Partial<Doc<'category'>[]>;
+  categorySortedBy?: string;
 }) => {
   const addProduct = useMutation(api.users.addProductToUserCart);
-  const { category } = useParams();
   const AddOrRemoveToFavorites = useMutation(
     api.products.AddOrRemoveToFavorites
   );
@@ -71,7 +71,7 @@ const Product = ({
       fontSize: 16,
     },
   }));
-  const categoryToDisplay = category ?? categories[0]?.tag;
+  const categoryToDisplay = categorySortedBy ?? categories[0]?.tag;
   return (
     <Card
       sx={{
@@ -97,7 +97,7 @@ const Product = ({
         <ButtonAddToFavoriteStyles
           isFavorite={isFavorite}
           onClick={tryToAddorRemoveFavorites}
-          disabled={categoryToDisplay === 'presale'}
+          disabled={!!categories.find((cat) => cat?.tag === 'Presale')}
         />
         <CardMedia
           sx={{
@@ -145,7 +145,7 @@ const Product = ({
           variant='h6'
           color='text.secondary'
         >
-          {price}
+          {price} gold
         </Typography>
       </CardContent>
       <CardActions sx={{ textAlign: 'Left' }}>
@@ -163,7 +163,7 @@ const Product = ({
               backgroundColor: 'transparent',
             },
           }}
-          disabled={categoryToDisplay === 'presale'}
+          disabled={!!categories.find((cat) => cat?.tag === 'Presale')}
           onClick={tryToAddProduct}
         >
           Dodaj do Koszyka
