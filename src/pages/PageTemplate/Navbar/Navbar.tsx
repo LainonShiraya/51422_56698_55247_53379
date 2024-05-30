@@ -9,9 +9,12 @@ import UpperNavbar from './UpperNavbar/UpperNavbar';
 import Sidebar from '../../../pages/PageTemplate/Sidebar/Sidebar';
 import { useState } from 'react';
 import { useConvexAuth } from 'convex/react';
+import { useNavigate } from 'react-router-dom'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ConvexButtonShopIcon from './ConvexButtonShopIcon';
 import { useAuth0 } from '@auth0/auth0-react';
+import { Route } from '@mui/icons-material';
+
 const Navbar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [sidebarValue, setSidebarValue] = useState('0');
@@ -26,15 +29,26 @@ const Navbar = () => {
     setSidebarValue(newValue);
   };
 
+  const navigate= useNavigate();
+
+  const handleClick = () => {
+     navigate('/'); // Przekierowuje na stronę "homeage"
+  };
+
   return (
     <AppBar position='sticky'>
       <UpperNavbar />
       <ContainerNavbarWrapper>
         <Toolbar sx={{ gap: '2rem' }}>
-          <img
+          {<img
             src={logo}
             width='82px'
+             onClick={() => {
+               handleClick();
+             }}
+             style={{ cursor: 'pointer' }}
           />
+          }
           <MenuItemUnderlined
             onClick={() => {
               changeSidebarValue('1');
@@ -92,4 +106,6 @@ const Navbar = () => {
     </AppBar>
   );
 };
+
 export default Navbar;
+
