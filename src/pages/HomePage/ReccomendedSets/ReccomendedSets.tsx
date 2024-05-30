@@ -7,10 +7,12 @@ import OfferCard from '../WeeklyPicked/OfferCard/OfferCard';
 import KidsLego from '../../../assets/ReccomendedSets/kids-lego.jpeg';
 import { useQuery } from 'convex/react';
 import { api } from '../../../../convex/_generated/api';
+import { useNavigate } from 'react-router-dom';
 
 function ReccomendedSets() {
   const products = useQuery(api.products.getReccomendedTop4Products);
   const weeklyOferts = useQuery(api.products.getTop3WeeklySets);
+  const navigate = useNavigate();
   return (
     <Container maxWidth='xl'>
       <Typography
@@ -79,6 +81,9 @@ function ReccomendedSets() {
                 border: '2px solid #ED1C24',
                 backgroundColor: '#ED1C24',
               },
+            }}
+            onClick={() => {
+              navigate('../shop');
             }}
           >
             Produkty

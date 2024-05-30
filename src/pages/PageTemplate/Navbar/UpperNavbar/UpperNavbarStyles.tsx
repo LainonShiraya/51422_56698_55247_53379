@@ -44,7 +44,14 @@ export const ToolbarUpperNavbar = ({
 }: {
   children?: React.ReactNode;
 }) => (
-  <Toolbar sx={{ minHeight: '32px !important', gap: '1rem' }}>
+  <Toolbar
+    sx={{
+      minHeight: '32px !important',
+      gap: '1rem',
+      marginRight: '0',
+      marginLeft: 'auto',
+    }}
+  >
     {children}
   </Toolbar>
 );

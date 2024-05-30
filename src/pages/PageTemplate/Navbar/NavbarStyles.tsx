@@ -25,14 +25,17 @@ export const ContainerNavbarWrapper = ({
 export const ButtonSpecial = ({
   children,
   hasIcon,
+  onClick,
 }: {
   children?: React.ReactNode;
   hasIcon?: boolean;
+  onClick?: () => void;
 }) => (
   <Button
     variant='contained'
     color='secondary'
     endIcon={hasIcon && <SendIcon />}
+    onClick={onClick}
     sx={{
       fontWeight: '700',
       margin: '0',

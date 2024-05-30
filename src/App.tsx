@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage/HomePage';
 import CartPage from './pages/CartPage/CartPage';
 import AccountPage from './pages/AccountPage/AccountPage';
 import SettingsPage from './pages/AccountPage/SettingsPage/SettingsPage';
+import ShopPage from './pages/ShopPage/ShopPage';
 
 function App() {
   return (
@@ -13,19 +14,23 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route
-            path="/"
+            path='/'
             element={<HomePage />}
           />
           <Route
-            path="/cart"
+            path='/cart'
             element={<CartPage />}
           />
-         <Route
-            path="/account/*"
+          <Route
+            path='/shop/sortCategory?/:sortCategory?'
+            element={<ShopPage />}
+          />
+          <Route
+            path='/account/*'
             element={<AccountPage />}
           />
           <Route
-            path="/settings"
+            path='/settings'
             element={<SettingsPage />}
           />
         </Routes>

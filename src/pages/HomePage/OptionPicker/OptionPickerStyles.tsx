@@ -4,14 +4,17 @@ import Button from '@mui/material/Button';
 export const BoxOptionPickerOption = ({
   icon,
   title,
+  onClick,
 }: {
   children?: React.ReactNode;
   icon: string;
   title: string;
+  onClick: () => void;
 }) => (
   <Button
     disableRipple
     variant='text'
+    onClick={onClick}
     sx={{
       display: 'flex',
       flexDirection: 'column',
