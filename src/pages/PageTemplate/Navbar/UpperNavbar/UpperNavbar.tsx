@@ -12,9 +12,10 @@ import { useMutation } from 'convex/react';
 import { api } from '../../../../../convex/_generated/api';
 import { useEffect, useState } from 'react';
 import { Id } from '../../../../../convex/_generated/dataModel';
+import { Link as RouterLink } from 'react-router-dom';
 
 const UpperNavbar = () => {
-  const { user, logout, loginWithRedirect, isAuthenticated } = useAuth0();
+  const { user, loginWithRedirect, isAuthenticated } = useAuth0();
   const getConvexUser = useMutation(api.users.getConvexUser);
   const [userConvex, setUserConvex] = useState<{
     cart: {
@@ -51,14 +52,14 @@ const UpperNavbar = () => {
         <ToolbarUpperNavbar>
           {isAuthenticated ? (
             <>
-              <ButtonNoStyles onClick={() => logout()}>
+                <Button component={RouterLink} to="/account" disableRipple sx={{minHeight: '0',padding: '0','&:hover': {backgroundColor: 'transparent',}, }}>
                 <Avatar
                   alt={user?.name}
                   src={userIcon}
                   sx={{ width: 24, height: 24, marginInline: '0.5rem' }}
                 />
                 {user?.name}
-              </ButtonNoStyles>
+              </Button>
               |
               <ButtonNoStyles>
                 <Avatar

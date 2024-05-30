@@ -25,6 +25,7 @@ import React from 'react';
 import MiniProduct from './MiniProduct';
 import { api } from '../../../../convex/_generated/api';
 
+import { Link as RouterLink } from 'react-router-dom';
 const Navbar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [sidebarValue, setSidebarValue] = useState('0');
@@ -44,13 +45,12 @@ const Navbar = () => {
       <UpperNavbar />
       <ContainerNavbarWrapper>
         <Toolbar sx={{ gap: '2rem' }}>
-          <Link to='..'>
+          <RouterLink to='/'>
             <img
               src={logo}
               width='82px'
-              style={{ cursor: 'pointer' }}
             />
-          </Link>
+          </RouterLink>
           <MenuItemUnderlined
             onClick={() => {
               changeSidebarValue('1');

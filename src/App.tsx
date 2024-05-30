@@ -4,6 +4,8 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Theme } from './styles/MaterialUI/Theme';
 import HomePage from './pages/HomePage/HomePage';
 import CartPage from './pages/CartPage/CartPage';
+import AccountPage from './pages/AccountPage/AccountPage';
+import SettingsPage from './pages/AccountPage/SettingsPage/SettingsPage';
 import ShopPage from './pages/ShopPage/ShopPage';
 
 function App() {
@@ -22,6 +24,14 @@ function App() {
           <Route
             path='/shop/sortCategory?/:sortCategory?'
             element={<ShopPage />}
+          />
+          <Route
+            path='/account/*'
+            element={<AccountPage />}
+          />
+          <Route
+            path='/settings'
+            element={<SettingsPage />}
           />
         </Routes>
       </BrowserRouter>
