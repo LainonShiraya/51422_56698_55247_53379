@@ -112,5 +112,6 @@ export const getConvexUser = mutation({
       cart: authorDoc.cart,
       legoPoints:authorDoc.legoPoints,
       favorites: authorDoc.favorites,
+      id: authorDoc._id
     }
   }

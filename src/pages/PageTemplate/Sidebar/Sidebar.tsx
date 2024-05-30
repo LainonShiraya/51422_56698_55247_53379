@@ -81,6 +81,7 @@ const Sidebar: React.FC<SidebarProps> = ({
               >
                 {categories?.map((category) => (
                   <Button
+                    key={category._id}
                     sx={{ marginLeft: '0' }}
                     onClick={() => {
                       navigate(`../shop/sortCategory/${category.tag}`);

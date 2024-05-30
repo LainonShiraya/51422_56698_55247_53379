@@ -1,4 +1,4 @@
-import { Avatar } from '@mui/material';
+import { Avatar, Button } from '@mui/material';
 import {
   AppBarUpperNavbarWrapper,
   ButtonNoStyles,
@@ -52,7 +52,16 @@ const UpperNavbar = () => {
         <ToolbarUpperNavbar>
           {isAuthenticated ? (
             <>
-                <Button component={RouterLink} to="/account" disableRipple sx={{minHeight: '0',padding: '0','&:hover': {backgroundColor: 'transparent',}, }}>
+              <Button
+                component={RouterLink}
+                to='/account'
+                disableRipple
+                sx={{
+                  minHeight: '0',
+                  padding: '0',
+                  '&:hover': { backgroundColor: 'transparent' },
+                }}
+              >
                 <Avatar
                   alt={user?.name}
                   src={userIcon}

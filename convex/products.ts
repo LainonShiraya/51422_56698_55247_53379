@@ -192,7 +192,7 @@ export const getUserFavorites = query({
     const {db, auth} = ctx;
     const identity = await auth.getUserIdentity();
     if (!identity) {
-        throw new Error('Called saveUser without authentication present')
+        return [];
       }
       const { tokenIdentifier } = identity
       let savedUser;
@@ -201,7 +201,7 @@ export const getUserFavorites = query({
       .filter((q) => q.eq(q.field('tokenIdentifier'), tokenIdentifier))
       .first()
       if (existingUser === null) {
-       throw new Error('User is not registered in Convex')
+        return [];
       } else {
         savedUser = await db.get(existingUser._id);
       }

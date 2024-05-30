@@ -8,6 +8,72 @@ export const getDeliveries = query({
     }
 })
 
+export const getOrder = query({
+  handler: async (ctx) => {
+    const {db, auth} = ctx;
+    const identity = await auth.getUserIdentity();
+    if (!identity) {
+        throw new Error('Called saveUser without authentication present')
+      }
+      const { tokenIdentifier } = identity
+      const existingUser = await db
+      .query('users')
+      .filter((q) => q.eq(q.field('tokenIdentifier'), tokenIdentifier))
+      .first()
+      if (existingUser === null) {
+       throw new Error('User is not registered in Convex')
+      } else {
+          return await db.query('orders').filter((q) => q.eq(q.field('userEmail'), existingUser.userEmail)).first();
+
+      }
+  }
+})
+
+
+export const getOrders = query({
+  handler: async (ctx) => {
+    const {db, auth} = ctx;
+    const identity = await auth.getUserIdentity();
+    if (!identity) {
+        throw new Error('Called saveUser without authentication present')
+      }
+      const { tokenIdentifier } = identity
+      const existingUser = await db
+      .query('users')
+      .filter((q) => q.eq(q.field('tokenIdentifier'), tokenIdentifier))
+      .first()
+      if (existingUser === null) {
+       throw new Error('User is not registered in Convex')
+      } else {
+          const orderDetails = await db.query('orders').filter((q) => q.eq(q.field('userEmail'), existingUser.userEmail)).collect();
+          const productsDetails = await db.query('products').collect();
+       return orderDetails.map(order => {
+          const productsInOrder = order.products.map( orderProduct => {
+            const productDetail = productsDetails.find(product => product._id === orderProduct.productId);
+
+            // If the product detail exists, add the count parameter
+            if (productDetail) {
+              return {
+                id: productDetail._id,
+                name: productDetail.name,
+                price: productDetail.price,
+                url: productDetail.url,
+                count: orderProduct.count
+              };
+            } else {
+              // Handle the case where the product detail is not found
+              return null; // or handle it according to your requirement
+            }
+          }).filter(product => product !== null);
+            //productsDetails.filter( product => product._id === orderProduct.productId)
+          return {...order, products: productsInOrder.flat(1)}
+        })
+      }
+  }
+})
+
+
+
 
 export const SumarizeOrder = mutation({
   args: { deliveryId: v.id('delivery') },
