@@ -67,7 +67,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                   <Button
                     disableRipple
                     onClick={() => {
-                      navigate(`../shop/sortCategory/presale`);
+                      navigate(`../shop/sortCategory/Presale`);
                     }}
                   >
                     {' '}
