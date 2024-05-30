@@ -1,30 +1,59 @@
-# React + TypeScript + Vite
+# Dokumentacja Projektowa: Sklep Internetowy z Klockami 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+Celem dokumentacji jest zdefiniowanie, opisanie i zapewnienie zrozumienia dla wszystkich zaangażowanych stron (stakeholders) dotyczących projektu sklepu internetowego sprzedającego klocki. Dokumentacja ma służyć jako punkt odniesienia dla członków zespołu projektowego oraz interesariuszy w celu zapewnienia spójności i efektywnego prowadzenia projektu.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [Link do dokumentacji](https://docs.google.com/document/d/1WtNUlxISA0MsBbxo1shjA0K7qBcVojTq/edit?usp=drive_link&ouid=106100314386315738981&rtpof=true&sd=true)
 
-## Expanding the ESLint configuration
+## Opis skrócony projektu
+Projekt polega na stworzeniu i uruchomieniu sklepu internetowego, który będzie specjalizował się w sprzedaży klocków Lego, od klasycznych zestawów do bardziej zaawansowanych modeli budowlanych. Sklep będzie oferował szeroki wybór produktów, prowadząc możliwość zakupu online.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Wymagania funkcjonalne
+- Rejestracja użytkowników
+- Dodawanie klocków do koszyka
+- Dodawanie klocków do listy ulubionych
+- Przeglądanie listy zamówień
+- Przeglądanie listy ulubionych
+- Sortowanie produktów po cenie, nazwie, popularności, kategoriach
+- Realizacja zamówienia
+- Zarządzanie kontem użytkownika
 
-- Configure the top-level `parserOptions` property like this:
+## Wymagania niefunkcjonalne
+- Wydajność
+- Bezpieczeństwo
+- Zarządzanie produktami,zamówieniami jako administrator w łatwy sposób
+- Dostępność
+- Monitorowanie zużycia bazy
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+## Schemat bazy danych
+  ![image](https://github.com/LainonShiraya/51422_56698_55247_53379_54352/assets/59234543/dd7b9947-a360-4bc0-8d65-788a29bd920c)
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- Implementacja schematu
+  
+  ![image](https://github.com/LainonShiraya/51422_56698_55247_53379_54352/assets/59234543/654950fd-19aa-4f50-852c-66e43d51b5dd)
+
+  * Schemat przedstawia założenie dokumentowej bazy danych
+
+## Technologie Wykorzystywane
+
+### FrontEnd
+- React
+- Typescript
+- HTML5
+- Material UI
+- Jest
+- Prettier & Eslint ( Babel )
+
+### BackEnd
+- Auth0
+- Convex
+
+### CI/CD
+- Docker
+- Github Actions
+
+### Metodologia pracy
+- Agile bazowana na github projects workflow
+
+### Prace Wykonali: 
+- Konrad Rzodkiewicz numer albumu: 51422
