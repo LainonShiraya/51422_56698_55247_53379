@@ -8,6 +8,27 @@ export const getDeliveries = query({
     }
 })
 
+export const getOrder = query({
+  handler: async (ctx) => {
+    const {db, auth} = ctx;
+    const identity = await auth.getUserIdentity();
+    if (!identity) {
+        throw new Error('Called saveUser without authentication present')
+      }
+      const { tokenIdentifier } = identity
+      const existingUser = await db
+      .query('users')
+      .filter((q) => q.eq(q.field('tokenIdentifier'), tokenIdentifier))
+      .first()
+      if (existingUser === null) {
+       throw new Error('User is not registered in Convex')
+      } else {
+          return await db.query('orders').filter((q) => q.eq(q.field('userEmail'), existingUser.userEmail)).first();
+
+      }
+  }
+})
+
 
 export const SumarizeOrder = mutation({
   args: { deliveryId: v.id('delivery') },

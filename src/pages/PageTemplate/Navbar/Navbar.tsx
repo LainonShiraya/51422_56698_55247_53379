@@ -19,7 +19,7 @@ import { useConvexAuth, useQuery } from 'convex/react';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ConvexButtonShopIcon from './ConvexButtonShopIcon';
 import { useAuth0 } from '@auth0/auth0-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import React from 'react';
 import MiniProduct from './MiniProduct';
@@ -95,7 +95,10 @@ const Navbar = () => {
                 </Button>
                 <Menu {...bindMenu(popupState)}>
                   {getFavoriteProducts?.map((product) => (
-                    <MiniProduct product={product} />
+                    <MiniProduct
+                      product={product}
+                      key={product.id}
+                    />
                   ))}
                 </Menu>
               </React.Fragment>
