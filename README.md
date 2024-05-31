@@ -3,7 +3,7 @@
 
 Celem dokumentacji jest zdefiniowanie, opisanie i zapewnienie zrozumienia dla wszystkich zaangażowanych stron (stakeholders) dotyczących projektu sklepu internetowego sprzedającego klocki. Dokumentacja ma służyć jako punkt odniesienia dla członków zespołu projektowego oraz interesariuszy w celu zapewnienia spójności i efektywnego prowadzenia projektu.
 
-- [Link do dokumentacji](https://docs.google.com/document/d/1WtNUlxISA0MsBbxo1shjA0K7qBcVojTq/edit?usp=drive_link&ouid=106100314386315738981&rtpof=true&sd=true)
+- [Link do dokumentacji](https://docs.google.com/document/d/1XYowg1-O9LU13x_p4BH88Lu8v5hsTSe6)
 
 ## Opis skrócony projektu
 Projekt polega na stworzeniu i uruchomieniu sklepu internetowego, który będzie specjalizował się w sprzedaży klocków Lego, od klasycznych zestawów do bardziej zaawansowanych modeli budowlanych. Sklep będzie oferował szeroki wybór produktów, prowadząc możliwość zakupu online.
@@ -52,7 +52,8 @@ VITE_CONVEX_URL=
 ```
 
 ## Schemat bazy danych
-  ![image](https://github.com/LainonShiraya/51422_56698_55247_53379_54352/assets/59234543/dd7b9947-a360-4bc0-8d65-788a29bd920c)
+![image](https://github.com/LainonShiraya/51422_56698_55247_53379_54352/assets/59234543/7abd8027-c6ed-49aa-ad07-dc16677a5934)
+
 
 - Implementacja schematu
   
