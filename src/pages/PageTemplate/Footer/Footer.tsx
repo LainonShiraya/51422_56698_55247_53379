@@ -7,19 +7,14 @@ import {
   GridFooterVertical,
   TypographyTitleFooter,
 } from './FooterStyles';
-import students from '../../../assets/students';
-import Box from '@mui/material/Box';
-import { Button, Typography } from '@mui/material';
 const Footer = () => {
-  const moveToGithub = (link: string) => {
-    window.open(link);
-  };
   return (
     <Container
       maxWidth={false}
       sx={{
         backgroundColor: '#5D2E8C',
         color: '#FFF',
+        paddingBottom: '2rem',
       }}
     >
       <Grid
@@ -60,36 +55,6 @@ const Footer = () => {
           <ButtonTextFooter>Wyprzedaże</ButtonTextFooter>
         </GridFooterVertical>
       </Grid>
-      <Box
-        sx={{
-          marginBlock: '2rem',
-          marginInline: 'auto',
-          color: '#fff',
-          display: 'flex',
-          flexDirection: 'column',
-          textAlign: 'center',
-          gap: '0.5rem',
-        }}
-      >
-        <Typography
-          fontWeight='700'
-          variant='h6'
-        >
-          Studenci zajmujący się pracą zaliczeniową:{' '}
-        </Typography>
-        {students.map((student) => (
-          <Button
-            key={student.studentId}
-            variant='text'
-            sx={{ color: '#FFF' }}
-            onClick={() => {
-              moveToGithub(student.githubLink);
-            }}
-          >
-            {student.fullname} - {student.studentId}{' '}
-          </Button>
-        ))}
-      </Box>
     </Container>
   );
 };
