@@ -1,11 +1,9 @@
 import { Box, Button, Container, Grid, Typography } from '@mui/material';
 import { useAuth0 } from '@auth0/auth0-react';
-import { useState } from 'react';
 import { useQuery } from 'convex/react';
 import { api } from '../../../../convex/_generated/api';
 import { useNavigate } from 'react-router-dom';
 const GeneralInfo = () => {
-  const [Status] = useState(2);
   const { user } = useAuth0();
   const userInfo = useQuery(api.users.getUserConvexInfo);
   const getOrders = useQuery(api.orders.getOrder);
@@ -177,72 +175,87 @@ const GeneralInfo = () => {
             width: '100%', // Ustawienie szerokości na 100%
           }}
         >
-          <Grid
-            container
-            justifyContent='space-between'
-          >
+          {getOrders ? (
             <Grid
-              item
-              xs={9}
+              container
+              justifyContent='space-between'
             >
-              <Typography
-                variant='body1'
-                textAlign='left'
-                color={
-                  Status === 0 ? 'blue' : Status === 1 ? '#FFD700' : 'green'
-                }
+              <Grid
+                item
+                xs={9}
               >
-                {Status === 0
-                  ? 'Opłacone'
-                  : Status === 1
-                  ? 'W realizacji'
-                  : 'Wysłane'}
-              </Typography>
-              <Typography
-                variant='body1'
-                textAlign='left'
-                color={'black'}
+                <Typography
+                  variant='body1'
+                  textAlign='left'
+                  color={
+                    getOrders.status === 'Paid'
+                      ? 'blue'
+                      : getOrders.status === 'Sent'
+                      ? '#FFD700'
+                      : 'green'
+                  }
+                >
+                  {getOrders.status === 'Paid'
+                    ? 'Opłacone'
+                    : getOrders.status === 'Sent'
+                    ? 'Wysłane'
+                    : 'Dostarczone'}
+                </Typography>
+                <Typography
+                  variant='body1'
+                  textAlign='left'
+                  color={'black'}
+                >
+                  Numer zamówienia: {getOrders?._id}
+                </Typography>
+                <Typography
+                  variant='body1'
+                  textAlign='left'
+                  color={'black'}
+                >
+                  Data zamówienia: {date.toLocaleDateString() ?? 'Brak Danych'}
+                </Typography>
+                <Typography
+                  variant='body1'
+                  textAlign='left'
+                  marginBottom='2rem'
+                  color={'black'}
+                >
+                  Suma: {getOrders?.totalPrice}
+                </Typography>
+              </Grid>
+              <Grid
+                item
+                xs={3}
+                sx={{ alignSelf: 'flex-end', justifySelf: 'flex-end' }}
               >
-                Numer zamówienia: {getOrders?._id}
-              </Typography>
-              <Typography
-                variant='body1'
-                textAlign='left'
-                color={'black'}
-              >
-                Data zamówienia: {date.toUTCString() ?? 'Brak Danych'}
-              </Typography>
-              <Typography
-                variant='body1'
-                textAlign='left'
-                marginBottom='2rem'
-                color={'black'}
-              >
-                Suma: {getOrders?.totalPrice}
-              </Typography>
+                <Button
+                  variant='contained'
+                  disableRipple
+                  sx={{ alignSelf: 'flex-start' }}
+                  style={{
+                    borderRadius: '5px',
+                    backgroundColor: 'blue',
+                    color: 'white',
+                  }}
+                  onClick={() => {
+                    navigate('../orders');
+                  }}
+                >
+                  Zobacz zamówienie
+                </Button>
+              </Grid>
             </Grid>
-            <Grid
-              item
-              xs={3}
-              sx={{ alignSelf: 'flex-end', justifySelf: 'flex-end' }}
+          ) : (
+            <Typography
+              variant='body1'
+              textAlign='left'
+              marginBottom='2rem'
+              color={'black'}
             >
-              <Button
-                variant='contained'
-                disableRipple
-                sx={{ alignSelf: 'flex-start' }}
-                style={{
-                  borderRadius: '5px',
-                  backgroundColor: 'blue',
-                  color: 'white',
-                }}
-                onClick={() => {
-                  navigate('../orders');
-                }}
-              >
-                Zobacz zamówienie
-              </Button>
-            </Grid>
-          </Grid>
+              Brak Zamówień
+            </Typography>
+          )}
         </Box>
       </Container>
     </div>

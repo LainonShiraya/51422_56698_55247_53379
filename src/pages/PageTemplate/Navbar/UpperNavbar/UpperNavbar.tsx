@@ -1,4 +1,11 @@
-import { Avatar, Button } from '@mui/material';
+import {
+  Avatar,
+  Box,
+  Button,
+  Paper,
+  Typography,
+  useTheme,
+} from '@mui/material';
 import {
   AppBarUpperNavbarWrapper,
   ButtonNoStyles,
@@ -13,6 +20,8 @@ import { api } from '../../../../../convex/_generated/api';
 import { useEffect, useState } from 'react';
 import { Id } from '../../../../../convex/_generated/dataModel';
 import { Link as RouterLink } from 'react-router-dom';
+import React from 'react';
+import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
 
 const UpperNavbar = () => {
   const { user, loginWithRedirect, isAuthenticated } = useAuth0();
@@ -38,17 +47,87 @@ const UpperNavbar = () => {
         .catch(console.error);
     }
   }, [getConvexUser, isAuthenticated]);
+
+  const text = [
+    {
+      label: 'BEZPŁATNA dostawa zamówień o wartości powyżej 200 zł!*Więcej',
+    },
+    {
+      label: 'Zapisz sie na nasz newsletter',
+    },
+    {
+      label: 'Odkrywaj najnowsze kolekcję Lego',
+    },
+  ];
+
+  const theme = useTheme();
+  const [activeStep, setActiveStep] = React.useState(0);
+  const maxSteps = text.length;
+
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
   return (
     <AppBarUpperNavbarWrapper>
       <ContainerUpperNavbarWrapper>
-        {/* <ToolbarUpperNavbar>
-          <Button>{`<-`} Strefa Zabawy </Button>
+        <ToolbarUpperNavbar>
+          <Button
+            variant='contained'
+            size='small'
+            sx={{ padding: '0.2rem 0.5rem !important' }}
+          >
+            {`<-`} Strefa Zabawy{' '}
+          </Button>
         </ToolbarUpperNavbar>
         <ToolbarUpperNavbar>
-          <ButtonNoStyles>{`<`}</ButtonNoStyles>BEZPŁATNA dostawa zamówień o
-          wartości powyżej 200 zł!*Więcej
-          <ButtonNoStyles>{`>`}</ButtonNoStyles>
-        </ToolbarUpperNavbar> */}
+          <Button
+            size='small'
+            onClick={handleBack}
+            disabled={activeStep === 0}
+          >
+            {theme.direction === 'rtl' ? (
+              <KeyboardArrowRight />
+            ) : (
+              <KeyboardArrowLeft />
+            )}
+            Back
+          </Button>
+
+          <Box sx={{ width: 500 }}>
+            <Paper
+              square
+              elevation={0}
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: 20,
+                pl: 2,
+                bgcolor: 'transparent',
+              }}
+            >
+              <Typography>{text[activeStep].label}</Typography>
+            </Paper>
+          </Box>
+
+          <Button
+            size='small'
+            onClick={handleNext}
+            disabled={activeStep === maxSteps - 1}
+          >
+            Next
+            {theme.direction === 'rtl' ? (
+              <KeyboardArrowLeft />
+            ) : (
+              <KeyboardArrowRight />
+            )}
+          </Button>
+        </ToolbarUpperNavbar>
         <ToolbarUpperNavbar>
           {isAuthenticated ? (
             <>

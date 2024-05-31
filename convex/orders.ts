@@ -58,7 +58,8 @@ export const getOrders = query({
                 name: productDetail.name,
                 price: productDetail.price,
                 url: productDetail.url,
-                count: orderProduct.count
+                count: orderProduct.count,
+                status : order.status
               };
             } else {
               // Handle the case where the product detail is not found
@@ -114,7 +115,8 @@ export const SumarizeOrder = mutation({
       products: userCart,
       legoPoints: legoPointsSummed,
       delivery: args.deliveryId,
-      totalPrice: PriceSummed
+      totalPrice: PriceSummed,
+      status: 'Paid'
     })
     
     await db.patch(existingUser._id, { cart: [], legoPoints: legoPointsSummed });
