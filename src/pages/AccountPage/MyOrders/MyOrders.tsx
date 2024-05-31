@@ -35,8 +35,32 @@ const MyOrders: React.FC = () => {
               id={order._id}
             >
               Order number: {order._id}
+              <Typography
+                variant='body1'
+                textAlign='left'
+                sx={{ marginLeft: '1rem' }}
+                color={
+                  order.status === 'Paid'
+                    ? 'blue'
+                    : order.status === 'Sent'
+                    ? '#FFD700'
+                    : 'green'
+                }
+              >
+                {order.status === 'Paid'
+                  ? 'Opłacone'
+                  : order.status === 'Sent'
+                  ? 'Wysłane'
+                  : 'Dostarczone'}
+              </Typography>
             </AccordionSummary>
-            <AccordionDetails sx={{ display: 'flex', flexDirection: 'row' }}>
+            <AccordionDetails
+              sx={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+                padding: '0 !important',
+              }}
+            >
               {order.products.map((product) => (
                 <OrderProduct product={product!} />
               ))}

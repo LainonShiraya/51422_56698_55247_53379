@@ -38,6 +38,7 @@ export default defineSchema({
     userEmail: v.string(),
     delivery: v.id('delivery'),
     totalPrice: v.number(),
+    status: v.string(),
   }),
   delivery: defineTable({
     type: v.string(),
