@@ -84,3 +84,7 @@ VITE_CONVEX_URL=
 
 ### Prace Wykonali: 
 - Konrad Rzodkiewicz numer albumu: 51422
+- Przemysław Pieczykolan numer albumu: 56698
+- Łukasz Ostoiński numer albumu:  54352
+- Paweł Piątek numer albumu: 53379
+- Adrian Stachurski numer albumu: 55247
