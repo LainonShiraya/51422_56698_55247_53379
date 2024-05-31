@@ -1,4 +1,11 @@
-import { AppBar, Badge, Button, IconButton, Toolbar } from '@mui/material';
+import {
+  AppBar,
+  Badge,
+  Button,
+  IconButton,
+  Menu,
+  Toolbar,
+} from '@mui/material';
 import logo from '../../../assets/logo.png';
 import {
   ContainerNavbarWrapper,
@@ -8,19 +15,22 @@ import {
 import UpperNavbar from './UpperNavbar/UpperNavbar';
 import Sidebar from '../../../pages/PageTemplate/Sidebar/Sidebar';
 import { useState } from 'react';
-import { useConvexAuth } from 'convex/react';
-import { useNavigate } from 'react-router-dom'
+import { useConvexAuth, useQuery } from 'convex/react';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ConvexButtonShopIcon from './ConvexButtonShopIcon';
 import { useAuth0 } from '@auth0/auth0-react';
-import { Route } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
+import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
+import MiniProduct from './MiniProduct';
+import { api } from '../../../../convex/_generated/api';
 
+import { Link as RouterLink } from 'react-router-dom';
 const Navbar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [sidebarValue, setSidebarValue] = useState('0');
   const { isAuthenticated } = useConvexAuth();
   const { loginWithRedirect } = useAuth0();
-
+  const getFavoriteProducts = useQuery(api.products.getUserFavorites);
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
@@ -28,27 +38,18 @@ const Navbar = () => {
   const changeSidebarValue = (newValue: string) => {
     setSidebarValue(newValue);
   };
-
-  const navigate= useNavigate();
-
-  const handleClick = () => {
-     navigate('/'); // Przekierowuje na stronę "homeage"
-  };
-
+  const navigate = useNavigate();
   return (
     <AppBar position='sticky'>
       <UpperNavbar />
       <ContainerNavbarWrapper>
         <Toolbar sx={{ gap: '2rem' }}>
-          {<img
-            src={logo}
-            width='82px'
-             onClick={() => {
-               handleClick();
-             }}
-             style={{ cursor: 'pointer' }}
-          />
-          }
+          <RouterLink to='/'>
+            <img
+              src={logo}
+              width='82px'
+            />
+          </RouterLink>
           <MenuItemUnderlined
             onClick={() => {
               changeSidebarValue('1');
@@ -59,16 +60,7 @@ const Navbar = () => {
           </MenuItemUnderlined>
           <MenuItemUnderlined
             onClick={() => {
-              changeSidebarValue('2');
-              toggleSidebar();
-            }}
-          >
-            SELL
-          </MenuItemUnderlined>
-          <MenuItemUnderlined
-            onClick={() => {
-              changeSidebarValue('3');
-              toggleSidebar();
+              navigate(`../shop/sortCategory/Presale`);
             }}
           >
             PRE SALE
@@ -79,11 +71,58 @@ const Navbar = () => {
             value={sidebarValue}
             changeValue={changeSidebarValue}
           />
-          <ButtonSpecial>PROMOTIONS</ButtonSpecial>
+          <ButtonSpecial
+            onClick={() => {
+              navigate(`../shop/sortCategory/Sale`);
+            }}
+          >
+            PROMOTIONS
+          </ButtonSpecial>
         </Toolbar>
-        <Toolbar>
-          <Button>Search</Button>
-          <Button>Like</Button>
+        <Toolbar sx={{ gap: '1rem' }}>
+          {getFavoriteProducts && getFavoriteProducts?.length > 0 ? (
+            <PopupState
+              variant='popover'
+              popupId='demo-popup-menu'
+            >
+              {(popupState) => (
+                <Badge
+                  badgeContent={getFavoriteProducts.length}
+                  color='secondary'
+                  showZero
+                >
+                  <Button
+                    variant='text'
+                    {...bindTrigger(popupState)}
+                    sx={{ padding: '0 !important' }}
+                  >
+                    Favorites
+                  </Button>
+                  <Menu {...bindMenu(popupState)}>
+                    {getFavoriteProducts?.map((product) => (
+                      <MiniProduct
+                        product={product}
+                        key={product.id}
+                      />
+                    ))}
+                  </Menu>
+                </Badge>
+              )}
+            </PopupState>
+          ) : (
+            <Badge
+              badgeContent={0}
+              color='secondary'
+              showZero
+            >
+              <Button
+                variant='text'
+                sx={{ padding: '0 !important' }}
+              >
+                Favorites{' '}
+              </Button>
+            </Badge>
+          )}
           {isAuthenticated ? (
             <ConvexButtonShopIcon />
           ) : (
@@ -108,4 +147,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-

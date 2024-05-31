@@ -7,10 +7,12 @@ import OfferCard from '../WeeklyPicked/OfferCard/OfferCard';
 import KidsLego from '../../../assets/ReccomendedSets/kids-lego.jpeg';
 import { useQuery } from 'convex/react';
 import { api } from '../../../../convex/_generated/api';
+import { useNavigate } from 'react-router-dom';
 
 function ReccomendedSets() {
   const products = useQuery(api.products.getReccomendedTop4Products);
   const weeklyOferts = useQuery(api.products.getTop3WeeklySets);
+  const navigate = useNavigate();
   return (
     <Container maxWidth='xl'>
       <Typography
@@ -80,6 +82,9 @@ function ReccomendedSets() {
                 backgroundColor: '#ED1C24',
               },
             }}
+            onClick={() => {
+              navigate('../shop');
+            }}
           >
             Produkty
           </Button>
@@ -129,7 +134,14 @@ function ReccomendedSets() {
               Zobacz, jak dziewczynki budują bez granic, i inspiruj je do
               kreatywnej zabawy bez ograniczeń.
             </Typography>
-            <ButtonSpecial hasIcon>Do sklepu </ButtonSpecial>
+            <ButtonSpecial
+              hasIcon
+              onClick={() => {
+                navigate('../shop');
+              }}
+            >
+              Do sklepu{' '}
+            </ButtonSpecial>
           </Grid>
         </Grid>
         <Container

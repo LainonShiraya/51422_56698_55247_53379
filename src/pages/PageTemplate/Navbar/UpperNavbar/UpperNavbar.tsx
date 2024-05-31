@@ -1,4 +1,11 @@
-import { Avatar, Box, Button, Menu, MenuItem, MobileStepper, Paper, Typography, useTheme } from '@mui/material';
+import {
+  Avatar,
+  Box,
+  Button,
+  Paper,
+  Typography,
+  useTheme,
+} from '@mui/material';
 import {
   AppBarUpperNavbarWrapper,
   ButtonNoStyles,
@@ -12,13 +19,12 @@ import { useMutation } from 'convex/react';
 import { api } from '../../../../../convex/_generated/api';
 import { useEffect, useState } from 'react';
 import { Id } from '../../../../../convex/_generated/dataModel';
+import { Link as RouterLink } from 'react-router-dom';
 import React from 'react';
-import { CenterFocusStrong, KeyboardArrowLeft, KeyboardArrowRight, Logout } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
-
+import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
 
 const UpperNavbar = () => {
-  const { user, logout, loginWithRedirect, isAuthenticated } = useAuth0();
+  const { user, loginWithRedirect, isAuthenticated } = useAuth0();
   const getConvexUser = useMutation(api.users.getConvexUser);
   const [userConvex, setUserConvex] = useState<{
     cart: {
@@ -44,15 +50,13 @@ const UpperNavbar = () => {
 
   const text = [
     {
-      label: 'BEZPŁATNA dostawa zamówień o wartości powyżej 200 zł!*Więcej'
+      label: 'BEZPŁATNA dostawa zamówień o wartości powyżej 200 zł!*Więcej',
     },
     {
-      label: 'Zapisz sie na nasz newsletter'
-
+      label: 'Zapisz sie na nasz newsletter',
     },
     {
-      label: 'Odkrywaj najnowsze kolekcję Lego'
-
+      label: 'Odkrywaj najnowsze kolekcję Lego',
     },
   ];
 
@@ -68,30 +72,24 @@ const UpperNavbar = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-  const navigate = useNavigate();
-
-  const accountView = () => {
-    navigate("/user")
-  };
-
-
   return (
     <AppBarUpperNavbarWrapper>
       <ContainerUpperNavbarWrapper>
         <ToolbarUpperNavbar>
-          <Button>{`<-`} Strefa Zabawy </Button>
+          <Button
+            variant='contained'
+            size='small'
+            sx={{ padding: '0.2rem 0.5rem !important' }}
+          >
+            {`<-`} Strefa Zabawy{' '}
+          </Button>
         </ToolbarUpperNavbar>
         <ToolbarUpperNavbar>
-
-          <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+          <Button
+            size='small'
+            onClick={handleBack}
+            disabled={activeStep === 0}
+          >
             {theme.direction === 'rtl' ? (
               <KeyboardArrowRight />
             ) : (
@@ -100,7 +98,7 @@ const UpperNavbar = () => {
             Back
           </Button>
 
-          <Box sx={{ width: 500, }}>
+          <Box sx={{ width: 500 }}>
             <Paper
               square
               elevation={0}
@@ -112,57 +110,44 @@ const UpperNavbar = () => {
                 pl: 2,
                 bgcolor: 'transparent',
               }}
-              
             >
-              <Typography >{text[activeStep].label}</Typography>
+              <Typography>{text[activeStep].label}</Typography>
             </Paper>
           </Box>
 
           <Button
-              size="small"
-              onClick={handleNext}
-              disabled={activeStep === maxSteps - 1}
-            >
-              Next
-              {theme.direction === 'rtl' ? (
-                <KeyboardArrowLeft />
-              ) : (
-                <KeyboardArrowRight />
-              )}
-            </Button>
-
+            size='small'
+            onClick={handleNext}
+            disabled={activeStep === maxSteps - 1}
+          >
+            Next
+            {theme.direction === 'rtl' ? (
+              <KeyboardArrowLeft />
+            ) : (
+              <KeyboardArrowRight />
+            )}
+          </Button>
         </ToolbarUpperNavbar>
         <ToolbarUpperNavbar>
           {isAuthenticated ? (
             <>
-              <div>
-                <Button
-                  id="basic-button"
-                  aria-controls={open ? 'basic-menu' : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={open ? 'true' : undefined}
-                  onClick={handleClick}
-                >
-                  <Avatar
-                    alt={user?.name}
-                    src={userIcon}
-                    sx={{ width: 24, height: 24, marginInline: '0.5rem' }}
-                  />
-                  {user?.name}
-                </Button>
-                <Menu
-                  id="basic-menu"
-                  anchorEl={anchorEl}
-                  open={open}
-                  onClose={handleClose}
-                  MenuListProps={{
-                    'aria-labelledby': 'basic-button',
-                  }}
-                >
-                  <MenuItem onClick={() => accountView()}>My account</MenuItem>
-                  <MenuItem onClick={() => logout()}>Logout</MenuItem>
-                </Menu>
-              </div>
+              <Button
+                component={RouterLink}
+                to='/account'
+                disableRipple
+                sx={{
+                  minHeight: '0',
+                  padding: '0',
+                  '&:hover': { backgroundColor: 'transparent' },
+                }}
+              >
+                <Avatar
+                  alt={user?.name}
+                  src={userIcon}
+                  sx={{ width: 24, height: 24, marginInline: '0.5rem' }}
+                />
+                {user?.name}
+              </Button>
               |
               <ButtonNoStyles>
                 <Avatar
@@ -185,4 +170,3 @@ const UpperNavbar = () => {
 };
 
 export default UpperNavbar;
-

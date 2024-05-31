@@ -9,7 +9,9 @@ export default defineSchema({
     sold: v.number(),
     legoPoints: v.number(),
     categories: v.array(v.id('category'))
-  }).index("by_sold", ["sold"]),
+  }).index("by_sold", ["sold"])
+  .index("by_price", ["price"])
+  .index("by_name", ["name"]),
   users: defineTable({
     userEmail: v.string(),
     legoPoints: v.number(),

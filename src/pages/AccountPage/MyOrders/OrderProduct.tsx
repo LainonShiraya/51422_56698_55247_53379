@@ -12,52 +12,21 @@ import {
   styled,
   tooltipClasses,
 } from '@mui/material';
-import { BoxTagStyles, ButtonAddToFavoriteStyles } from './ProductStyles';
-import { Doc, Id } from '../../../../../convex/_generated/dataModel';
-import { useConvexAuth, useMutation, useQuery } from 'convex/react';
-import { api } from '../../../../../convex/_generated/api';
-import { useAuth0 } from '@auth0/auth0-react';
-
-const Product = ({
-  name,
-  price,
-  url,
-  _id,
-  categories,
-  categorySortedBy,
+import { useMutation } from 'convex/react';
+import { api } from '../../../../convex/_generated/api';
+import { Id } from '../../../../convex/_generated/dataModel';
+const OrderProduct = ({
+  product,
 }: {
-  name: string;
-  price: number;
-  url: string;
-  _id: Id<'products'>;
-  categories: Partial<Doc<'category'>[]>;
-  categorySortedBy?: string;
+  product: {
+    name: string;
+    price: number;
+    url: string;
+    count: number;
+    id: Id<'products'>;
+  };
 }) => {
   const addProduct = useMutation(api.users.addProductToUserCart);
-  const AddOrRemoveToFavorites = useMutation(
-    api.products.AddOrRemoveToFavorites
-  );
-  const isFavorite = useQuery(api.products.checkIsFavorite, {
-    productId: _id!,
-  });
-  const { isAuthenticated, isLoading } = useConvexAuth();
-  const { loginWithRedirect } = useAuth0();
-  const tryToAddProduct = async () => {
-    if (isAuthenticated && !isLoading) {
-      await addProduct({ newProductId: _id! });
-    }
-    if (!isAuthenticated && !isLoading) {
-      loginWithRedirect();
-    }
-  };
-  const tryToAddorRemoveFavorites = async () => {
-    if (isAuthenticated && !isLoading) {
-      await AddOrRemoveToFavorites({ productId: _id! });
-    }
-    if (!isAuthenticated && !isLoading) {
-      loginWithRedirect();
-    }
-  };
   const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
     <Tooltip
       {...props}
@@ -71,7 +40,6 @@ const Product = ({
       fontSize: 16,
     },
   }));
-  const categoryToDisplay = categorySortedBy ?? categories[0]?.tag;
   return (
     <Card
       sx={{
@@ -94,11 +62,6 @@ const Product = ({
           justifyContent: 'flex-start',
         }}
       >
-        <ButtonAddToFavoriteStyles
-          isFavorite={isFavorite}
-          onClick={tryToAddorRemoveFavorites}
-          disabled={!!categories.find((cat) => cat?.tag === 'Presale')}
-        />
         <CardMedia
           sx={{
             height: 200,
@@ -109,21 +72,20 @@ const Product = ({
               transform: 'scale(1.1)',
             },
           }}
-          image={url}
-          title={name}
+          image={product.url}
+          title={product.name}
         />
-        <BoxTagStyles>{categoryToDisplay}</BoxTagStyles>
       </Container>
       <CardContent sx={{ border: 'none', textAlign: 'Left' }}>
-        {name.length > 21 ? (
-          <LightTooltip title={name}>
+        {product.name.length > 21 ? (
+          <LightTooltip title={product.name}>
             <Typography
               gutterBottom
               variant='h5'
               component='div'
               noWrap
             >
-              {name}
+              {product.name}
             </Typography>
           </LightTooltip>
         ) : (
@@ -133,7 +95,7 @@ const Product = ({
             component='div'
             noWrap
           >
-            {name}
+            {product.name}
           </Typography>
         )}
         <Rating
@@ -145,7 +107,13 @@ const Product = ({
           variant='h6'
           color='text.secondary'
         >
-          {price} gold
+          {product.price}
+        </Typography>
+        <Typography
+          variant='h6'
+          color='black'
+        >
+          {`Bought: ${product.count}`}
         </Typography>
       </CardContent>
       <CardActions sx={{ textAlign: 'Left' }}>
@@ -163,14 +131,15 @@ const Product = ({
               backgroundColor: 'transparent',
             },
           }}
-          disabled={!!categories.find((cat) => cat?.tag === 'Presale')}
-          onClick={tryToAddProduct}
+          onClick={async () => {
+            await addProduct({ newProductId: product.id! });
+          }}
         >
-          Dodaj do Koszyka
+          Kup ponownie
         </Button>
       </CardActions>
     </Card>
   );
 };
 
-export default Product;
+export default OrderProduct;

@@ -66,7 +66,7 @@ export default function OfferCard({
               backgroundColor: 'transparent',
             },
           }}
-          href={`.../shop/category=${category.tag}`}
+          href={`/shop/sortCategory/${category.tag}`}
         >
           Do sklepu
         </Button>

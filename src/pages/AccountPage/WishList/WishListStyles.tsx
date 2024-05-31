@@ -5,16 +5,13 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 export const ButtonAddToFavoriteStyles = ({
   onClick,
   isFavorite,
-  disabled,
 }: {
   onClick: () => void;
   isFavorite: boolean | undefined;
-  disabled?: boolean;
 }) => (
   <Button
     disableRipple
     onClick={onClick}
-    disabled={disabled}
     sx={{
       minHeight: '0',
       padding: '0',
@@ -44,14 +41,6 @@ export const ButtonAddToFavoriteStyles = ({
         }}
       />
     )}
-    <Typography
-      sx={{ marginLeft: '1rem' }}
-      variant='subtitle2'
-      fontWeight='700'
-    >
-      {' '}
-      Dodaj do listy życzeń{' '}
-    </Typography>
   </Button>
 );
 

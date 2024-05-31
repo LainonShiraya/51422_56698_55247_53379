@@ -14,6 +14,29 @@ export const getProducts = query({
         }));
     }
 })
+// "by_sold" | "by_price" | "by_name" | "by_creation_time" 
+export const getProductsBySelectedCategory = query({
+  args: { productTag: v.optional(v.string()), sortType : v.object({index:v.string(), order:v.string()}) },
+  handler: async (ctx,args) => {
+    const {db} = ctx;
+    const sort = args.sortType.index as "by_sold" | "by_price" | "by_name" | "by_creation_time" ;
+    const order = args.sortType.order as 'desc' | 'asc';
+    const categoryTable = await db.query('category').collect();
+    const categoriesOfProduct = new Map(categoryTable.map(category => [category._id.toString(), category]));
+    const products = await ctx.db.query('products').withIndex(sort).order(order).collect();
+    if(!args.productTag){
+      return products.map( product => ({
+        ...product,
+        categories: product.categories.map(categoryId => categoriesOfProduct.get(categoryId.toString()))
+      }));
+    }
+    return products.map( product => ({
+      ...product,
+      categories: product.categories.map(categoryId => categoriesOfProduct.get(categoryId.toString()))
+    })).filter(product => product.categories.find(cat => cat?.tag === args.productTag))
+  }
+})
+
 
 export const getReccomendedTop4Products = query({
     handler: async (ctx) => {
@@ -169,7 +192,7 @@ export const getUserFavorites = query({
     const {db, auth} = ctx;
     const identity = await auth.getUserIdentity();
     if (!identity) {
-        throw new Error('Called saveUser without authentication present')
+        return [];
       }
       const { tokenIdentifier } = identity
       let savedUser;
@@ -178,7 +201,7 @@ export const getUserFavorites = query({
       .filter((q) => q.eq(q.field('tokenIdentifier'), tokenIdentifier))
       .first()
       if (existingUser === null) {
-       throw new Error('User is not registered in Convex')
+        return [];
       } else {
         savedUser = await db.get(existingUser._id);
       }

@@ -50,8 +50,8 @@ const Cart: React.FC = () => {
                   src={item.url}
                   alt={item.name}
                   style={{
-                    width: '14rem',
-                    height: 'auto',
+                    width: '12rem',
+                    height: '10rem',
                     paddingLeft: '1rem',
                     borderRadius: '10%',
                   }}
