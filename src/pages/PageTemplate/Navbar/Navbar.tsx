@@ -34,10 +34,6 @@ const Navbar = () => {
           <img
             src={logo}
             width='82px'
-            style={{ cursor: 'pointer' }}
-            onClick={() => {
-              navigate('..');
-            }}
           />
           <MenuItemUnderlined
             onClick={() => {

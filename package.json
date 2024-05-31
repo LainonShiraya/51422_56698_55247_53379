@@ -10,8 +10,8 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "test": "jest",
-    "docker-run" : "docker run -it -v ${PWD}:/app -v /app/node_modules -p 5173:5173 -e CHOKIDAR_USEPOLLING=true test",
-    "docker-build" : "docker build -t test ."
+    "docker-run": "docker run -it -v ${PWD}:/app -v /app/node_modules -p 5173:5173 -e CHOKIDAR_USEPOLLING=true test",
+    "docker-build": "docker build -t test ."
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.2.4",
