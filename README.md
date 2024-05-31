@@ -56,7 +56,8 @@ VITE_CONVEX_URL=
 
 - Implementacja schematu
   
-  ![image](https://github.com/LainonShiraya/51422_56698_55247_53379_54352/assets/59234543/654950fd-19aa-4f50-852c-66e43d51b5dd)
+ ![image](https://github.com/LainonShiraya/51422_56698_55247_53379_54352/assets/59234543/31992ea2-f676-4c34-ae7d-3e8fd430b97e)
+
 
   * Schemat przedstawia założenie dokumentowej bazy danych
 
